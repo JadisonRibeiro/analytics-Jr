@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { LayoutDashboard, Database, GitBranch, Zap, Shield, GraduationCap, ArrowUpRight } from 'lucide-react';
 import { cardReveal, fadeUp, stagger, staggerFast, viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 const services = [
   { icon: LayoutDashboard, title: 'Dashboards interativos', desc: 'Painéis visuais e acionáveis que respondem às perguntas certas em tempo real.' },
@@ -16,7 +17,7 @@ export function ServicesSection() {
     <section id="servicos" className="relative overflow-hidden bg-brand-black py-28 lg:min-h-[820px]">
       <div className="perspective-grid opacity-30" />
       <motion.img
-        src="/maoia1.webp"
+        src={asset('maoia1.webp')}
         alt=""
         aria-hidden
         initial={{ opacity: 0, x: 40, scale: 0.9 }}

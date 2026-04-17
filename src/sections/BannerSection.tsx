@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 export function BannerSection() {
   return (
@@ -68,7 +69,7 @@ export function BannerSection() {
 
         <div className="relative mx-auto block w-full max-w-[1760px] overflow-hidden px-4 sm:px-6">
           <img
-            src="/Banner.webp"
+            src={asset('Banner.webp')}
             alt="Analytics JR"
             width={5954}
             height={2161}

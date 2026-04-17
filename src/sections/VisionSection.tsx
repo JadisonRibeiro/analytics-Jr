@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 export function VisionSection() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -108,7 +109,7 @@ export function VisionSection() {
               <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[40px] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.1),transparent_70%)] blur-2xl" />
               <div className="relative overflow-hidden rounded-[32px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] ring-1 ring-black/5">
                 <motion.img
-                  src="/Futuro.jpg"
+                  src={asset('Futuro.jpg')}
                   alt="Futuro orientado por dados"
                   loading="lazy"
                   style={{ y: imageY, scale: imageScale }}

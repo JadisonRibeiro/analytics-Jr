@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/Button';
 import { fadeUp, stagger } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -35,7 +36,7 @@ export function HeroSection() {
         disablePictureInPicture
         className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-60 [filter:saturate(1.15)_contrast(1.08)]"
       >
-        <source src="/hero.mp4" type="video/mp4" />
+        <source src={asset('hero.mp4')} type="video/mp4" />
       </video>
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(10,10,10,0.5)_80%,rgba(10,10,10,0.85)_100%)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-brand-black" />
@@ -48,7 +49,7 @@ export function HeroSection() {
           >
             <div className="absolute inset-0 -z-10 rounded-full bg-black/60 blur-3xl" />
             <img
-              src="/Logo_hero.png"
+              src={asset('Logo_hero.png')}
               alt="Analytics JR"
               className="h-36 w-auto drop-shadow-[0_10px_40px_rgba(0,0,0,0.85)] sm:h-48 md:h-56 lg:h-64"
             />

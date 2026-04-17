@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { asset } from '@/utils/asset';
 
 interface Props {
   onComplete: () => void;
@@ -150,7 +151,7 @@ export function LoadingScreen({ onComplete }: Props) {
               </motion.div>
 
               <motion.img
-                src="/Logo_Branca.png"
+                src={asset('Logo_Branca.png')}
                 alt="Analytics JR"
                 initial={{ scale: 0.6, opacity: 0, filter: 'blur(18px)' }}
                 animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}

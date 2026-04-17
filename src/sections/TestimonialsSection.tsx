@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 interface Testimonial {
   quote: string;
@@ -54,7 +55,7 @@ export function TestimonialsSection() {
     <section id="depoimentos" className="relative overflow-hidden bg-brand-black py-28">
       <div className="perspective-grid opacity-30" />
       <motion.img
-        src="/cubo1.webp"
+        src={asset('cubo1.webp')}
         alt=""
         aria-hidden
         initial={{ opacity: 0, x: -40, scale: 0.9 }}

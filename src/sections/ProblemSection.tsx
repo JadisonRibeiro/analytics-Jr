@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Brain, RefreshCw, Network } from 'lucide-react';
 import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 const pains = [
   {
@@ -25,7 +26,7 @@ export function ProblemSection() {
     <section id="problema" className="relative overflow-hidden bg-brand-black py-28 lg:min-h-[820px]">
       <div className="perspective-grid opacity-40" />
       <motion.img
-        src="/cubo.webp"
+        src={asset('cubo.webp')}
         alt=""
         aria-hidden
         initial={{ opacity: 0, x: -40, scale: 0.9 }}

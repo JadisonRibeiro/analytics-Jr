@@ -3,6 +3,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { motion } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { asset } from '@/utils/asset';
 
 const links = [
   { href: '#servicos', label: 'Serviços' },
@@ -37,7 +38,7 @@ export function Header() {
           data-magnetic
         >
           <img
-            src="/Logo_Branca.png"
+            src={asset('Logo_Branca.png')}
             alt=""
             className="h-8 w-auto drop-shadow-[0_0_12px_rgba(255,255,255,0.35)]"
           />
@@ -81,7 +82,7 @@ export function Header() {
             <Dialog.Content className="fixed inset-x-0 top-0 z-[70] border-b border-white/10 bg-brand-black p-6 shadow-2xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <img src="/Logo_Branca.png" alt="" className="h-8 w-auto" />
+                  <img src={asset('Logo_Branca.png')} alt="" className="h-8 w-auto" />
                   <Dialog.Title className="font-heading text-sm uppercase tracking-[0.28em] text-white">
                     Menu
                   </Dialog.Title>

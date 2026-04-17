@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -82,7 +83,7 @@ export function HowItWorksSection() {
             aria-hidden
             className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-80 [filter:saturate(1.15)_contrast(1.08)]"
           >
-            <source src="/hero.mp4" type="video/mp4" />
+            <source src={asset('hero.mp4')} type="video/mp4" />
           </video>
         )}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,10,10,0.25)_0%,rgba(10,10,10,0.55)_70%,rgba(10,10,10,0.8)_100%)]" />

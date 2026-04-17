@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Compass, Eye, HeartHandshake } from 'lucide-react';
 import { cardReveal, fadeUp, stagger, staggerFast, viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 const pillars = [
   {
@@ -72,7 +73,7 @@ export function PurposeSection() {
             >
               <div className="relative h-64 overflow-hidden bg-[#f5f5f2]">
                 <img
-                  src={p.image}
+                  src={asset(p.image)}
                   alt=""
                   aria-hidden
                   loading="lazy"

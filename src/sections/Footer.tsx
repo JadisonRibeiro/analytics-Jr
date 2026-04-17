@@ -1,5 +1,6 @@
 import { Instagram, Mail, ArrowUp } from 'lucide-react';
 import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
+import { asset } from '@/utils/asset';
 
 export function Footer() {
   return (
@@ -10,7 +11,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3">
               <img
-                src="/Logo_Branca.png"
+                src={asset('Logo_Branca.png')}
                 alt="Analytics JR"
                 className="h-11 w-auto drop-shadow-[0_4px_12px_rgba(255,255,255,0.15)]"
               />

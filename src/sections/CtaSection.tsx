@@ -17,8 +17,12 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+const FORM_ENDPOINT =
+  'https://script.google.com/macros/s/AKfycby_TdhqXnoHZm_vFfZFIcwzqcUBA81HgByAIF3aa20gtrKT1xjSXX4dME4BKY2QWQV3qg/exec';
+
 export function FinalCtaSection() {
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -26,10 +30,18 @@ export function FinalCtaSection() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
-  const onSubmit = async (_values: FormValues) => {
-    await new Promise((r) => setTimeout(r, 900));
-    setSent(true);
-    reset();
+  const onSubmit = async (values: FormValues) => {
+    setSubmitError(null);
+    try {
+      const body = new URLSearchParams({ ...values, origin: 'site' });
+      await fetch(FORM_ENDPOINT, { method: 'POST', body });
+      setSent(true);
+      reset();
+    } catch {
+      setSubmitError(
+        'Não conseguimos enviar agora. Tente novamente ou fale pelo WhatsApp.',
+      );
+    }
   };
 
   return (
@@ -201,6 +213,9 @@ export function FinalCtaSection() {
                       {isSubmitting ? 'Enviando…' : 'Enviar mensagem'}
                       <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
                     </button>
+                    {submitError && (
+                      <p className="mt-3 text-xs text-[#dc2626]">{submitError}</p>
+                    )}
                     <p className="mt-3 text-xs text-black/50">
                       Ao enviar, você concorda com nossa política de privacidade.
                     </p>

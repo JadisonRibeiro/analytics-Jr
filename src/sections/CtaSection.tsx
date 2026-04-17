@@ -7,11 +7,24 @@ import { ArrowRight, CheckCircle2, Mail, Phone, Sparkles } from 'lucide-react';
 import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 
+const painOptions = [
+  'Decisões baseadas em achismo',
+  'Relatórios demoram demais para ficar prontos',
+  'Dados espalhados em múltiplas planilhas e sistemas',
+  'Falta visão consolidada do negócio',
+  'ERPs, CRMs e ferramentas não conversam entre si',
+  'Não sei quais KPIs devo acompanhar',
+  'Preciso apresentar dados para a diretoria',
+  'Quero evoluir um BI que já existe',
+  'Outro / Ainda não sei definir',
+] as const;
+
 const schema = z.object({
   name: z.string().min(2, 'Informe seu nome'),
   email: z.string().email('E-mail inválido'),
   company: z.string().min(2, 'Informe a empresa'),
   phone: z.string().min(8, 'Telefone inválido'),
+  pain: z.enum(painOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
   message: z.string().min(10, 'Conte um pouco do seu contexto'),
 });
 
@@ -193,6 +206,24 @@ export function FinalCtaSection() {
                   <Field label="Telefone" error={errors.phone?.message}>
                     <input {...register('phone')} className={inputCls} placeholder="(91) 99836-1022" />
                   </Field>
+                  <div className="sm:col-span-2">
+                    <Field label="Maior dor hoje" error={errors.pain?.message}>
+                      <select
+                        {...register('pain')}
+                        defaultValue=""
+                        className={`${inputCls} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%227%22 viewBox=%220 0 12 7%22 fill=%22none%22><path d=%22M1 1l5 5 5-5%22 stroke=%22%23000%22 stroke-opacity=%22.55%22 stroke-width=%221.5%22 stroke-linecap=%22round%22/></svg>')] bg-[length:12px_7px] bg-[right_1rem_center] bg-no-repeat pr-10`}
+                      >
+                        <option value="" disabled>
+                          Selecione…
+                        </option>
+                        {painOptions.map((p) => (
+                          <option key={p} value={p}>
+                            {p}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                  </div>
                   <div className="sm:col-span-2">
                     <Field label="Contexto" error={errors.message?.message}>
                       <textarea

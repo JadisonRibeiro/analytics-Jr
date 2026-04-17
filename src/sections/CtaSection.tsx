@@ -19,22 +19,43 @@ const painOptions = [
   'Outro / Ainda não sei definir',
 ] as const;
 
-const schema = z.object({
-  name: z.string().min(2, 'Informe seu nome'),
-  email: z.string().email('E-mail inválido'),
-  company: z.string().min(2, 'Informe a empresa'),
-  phone: z
-    .string()
-    .refine(
-      (v) => {
-        const digits = v.replace(/\D/g, '');
-        return digits.length >= 10 && digits.length <= 11;
-      },
-      { message: 'Informe o telefone com DDD (ex: 91 99836-1022)' },
-    ),
-  pain: z.enum(painOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
-  message: z.string().min(10, 'Conte um pouco do seu contexto'),
-});
+const sourceOptions = [
+  'Planilhas (Excel / Google Sheets)',
+  'ERP corporativo (TOTVS, SAP, Protheus, RM, Sankhya)',
+  'ERP pequeno porte (Bling, Omie, Tiny, Conta Azul)',
+  'CRM (HubSpot, RD Station, Salesforce, Pipedrive)',
+  'Banco de dados (SQL Server, MySQL, PostgreSQL, Oracle)',
+  'E-commerce (Shopify, VTEX, Nuvemshop, WooCommerce)',
+  'Marketing digital (Google Analytics, Meta Ads, Google Ads)',
+  'APIs ou sistema próprio',
+  'Nuvem / Data Warehouse (AWS, BigQuery, Snowflake, Azure)',
+  'Ainda não temos base estruturada',
+  'Outro',
+] as const;
+
+const schema = z
+  .object({
+    name: z.string().min(2, 'Informe seu nome'),
+    email: z.string().email('E-mail inválido'),
+    company: z.string().min(2, 'Informe a empresa'),
+    phone: z
+      .string()
+      .refine(
+        (v) => {
+          const digits = v.replace(/\D/g, '');
+          return digits.length >= 10 && digits.length <= 11;
+        },
+        { message: 'Informe o telefone com DDD (ex: 91 99836-1022)' },
+      ),
+    pain: z.enum(painOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
+    source: z.enum(sourceOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
+    sourceOther: z.string().optional(),
+    message: z.string().min(10, 'Conte um pouco do seu contexto'),
+  })
+  .refine(
+    (d) => d.source !== 'Outro' || (d.sourceOther?.trim().length ?? 0) >= 2,
+    { message: 'Descreva a fonte utilizada', path: ['sourceOther'] },
+  );
 
 type FormValues = z.infer<typeof schema>;
 
@@ -48,13 +69,30 @@ export function FinalCtaSection() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
+
+  const selectedSource = watch('source');
 
   const onSubmit = async (values: FormValues) => {
     setSubmitError(null);
     try {
-      const body = new URLSearchParams({ ...values, origin: 'site' });
+      const source =
+        values.source === 'Outro' && values.sourceOther
+          ? values.sourceOther
+          : values.source;
+
+      const body = new URLSearchParams();
+      body.append('name', values.name);
+      body.append('email', values.email);
+      body.append('company', values.company);
+      body.append('phone', values.phone);
+      body.append('pain', values.pain);
+      body.append('source', source);
+      body.append('message', values.message);
+      body.append('origin', 'site');
+
       await fetch(FORM_ENDPOINT, { method: 'POST', body });
       setSent(true);
       reset();
@@ -224,7 +262,7 @@ export function FinalCtaSection() {
                       <select
                         {...register('pain')}
                         defaultValue=""
-                        className={`${inputCls} appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%227%22 viewBox=%220 0 12 7%22 fill=%22none%22><path d=%22M1 1l5 5 5-5%22 stroke=%22%23000%22 stroke-opacity=%22.55%22 stroke-width=%221.5%22 stroke-linecap=%22round%22/></svg>')] bg-[length:12px_7px] bg-[right_1rem_center] bg-no-repeat pr-10`}
+                        className={`${inputCls} ${selectCls}`}
                       >
                         <option value="" disabled>
                           Selecione…
@@ -237,6 +275,35 @@ export function FinalCtaSection() {
                       </select>
                     </Field>
                   </div>
+                  <div className="sm:col-span-2">
+                    <Field label="Onde estão seus dados hoje?" error={errors.source?.message}>
+                      <select
+                        {...register('source')}
+                        defaultValue=""
+                        className={`${inputCls} ${selectCls}`}
+                      >
+                        <option value="" disabled>
+                          Selecione…
+                        </option>
+                        {sourceOptions.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                  </div>
+                  {selectedSource === 'Outro' && (
+                    <div className="sm:col-span-2">
+                      <Field label="Qual fonte?" error={errors.sourceOther?.message}>
+                        <input
+                          {...register('sourceOther')}
+                          className={inputCls}
+                          placeholder="Ex: sistema próprio, ClickUp, Notion, Airtable…"
+                        />
+                      </Field>
+                    </div>
+                  )}
                   <div className="sm:col-span-2">
                     <Field label="Contexto" error={errors.message?.message}>
                       <textarea
@@ -276,6 +343,9 @@ export function FinalCtaSection() {
 
 const inputCls =
   'w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-black placeholder:text-black/35 transition focus:border-black/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-black/10';
+
+const selectCls =
+  "appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%227%22 viewBox=%220 0 12 7%22 fill=%22none%22><path d=%22M1 1l5 5 5-5%22 stroke=%22%23000%22 stroke-opacity=%22.55%22 stroke-width=%221.5%22 stroke-linecap=%22round%22/></svg>')] bg-[length:12px_7px] bg-[right_1rem_center] bg-no-repeat pr-10";
 
 function Field({
   label,

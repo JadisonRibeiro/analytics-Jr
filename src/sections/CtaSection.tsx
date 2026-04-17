@@ -23,7 +23,15 @@ const schema = z.object({
   name: z.string().min(2, 'Informe seu nome'),
   email: z.string().email('E-mail inválido'),
   company: z.string().min(2, 'Informe a empresa'),
-  phone: z.string().min(8, 'Telefone inválido'),
+  phone: z
+    .string()
+    .refine(
+      (v) => {
+        const digits = v.replace(/\D/g, '');
+        return digits.length >= 10 && digits.length <= 11;
+      },
+      { message: 'Informe o telefone com DDD (ex: 91 99836-1022)' },
+    ),
   pain: z.enum(painOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
   message: z.string().min(10, 'Conte um pouco do seu contexto'),
 });
@@ -203,8 +211,13 @@ export function FinalCtaSection() {
                   <Field label="Empresa" error={errors.company?.message}>
                     <input {...register('company')} className={inputCls} placeholder="Nome da empresa" />
                   </Field>
-                  <Field label="Telefone" error={errors.phone?.message}>
-                    <input {...register('phone')} className={inputCls} placeholder="(91) 99836-1022" />
+                  <Field label="WhatsApp com DDD" error={errors.phone?.message}>
+                    <input
+                      {...register('phone')}
+                      inputMode="tel"
+                      className={inputCls}
+                      placeholder="(91) 99836-1022"
+                    />
                   </Field>
                   <div className="sm:col-span-2">
                     <Field label="Maior dor hoje" error={errors.pain?.message}>

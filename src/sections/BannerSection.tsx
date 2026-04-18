@@ -67,7 +67,7 @@ export function BannerSection() {
           className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[60%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.18),transparent_70%)] blur-3xl"
         />
 
-        <div className="relative mx-auto block w-full max-w-[1920px] overflow-hidden">
+        <div className="relative mx-auto block w-full max-w-[1560px] overflow-hidden px-4 sm:px-8">
           <img
             src={asset('Banner.webp')}
             alt="Analytics JR"

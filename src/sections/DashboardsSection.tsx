@@ -123,7 +123,7 @@ export function DashboardsSection() {
               whileHover={{ y: -6, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
               className="group relative block overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] hover:border-white/25 hover:shadow-[0_40px_80px_-24px_rgba(0,0,0,0.7)]"
             >
-              <div className={`relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br ${d.gradient}`}>
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-brand-black">
                 <img
                   src={asset(d.cover)}
                   alt={`Prévia do ${d.title}`}
@@ -132,9 +132,8 @@ export function DashboardsSection() {
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).style.display = 'none';
                   }}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
                   <div className="flex items-center gap-1.5">

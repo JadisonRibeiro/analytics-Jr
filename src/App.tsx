@@ -17,6 +17,7 @@ import { TestimonialsSection } from './sections/TestimonialsSection';
 import { PricingSection } from './sections/PricingSection';
 import { FaqSection } from './sections/FaqSection';
 import { FinalCtaSection } from './sections/CtaSection';
+import { VerseSection } from './sections/VerseSection';
 import { Footer } from './sections/Footer';
 
 const OUTCOMES_WORDS_A = [
@@ -82,6 +83,7 @@ export default function App() {
           <PricingSection />
           <FaqSection />
           <FinalCtaSection />
+          <VerseSection />
         </main>
         <Footer />
         <WhatsAppButton />

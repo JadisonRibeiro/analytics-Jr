@@ -4,7 +4,10 @@ import { viewportOnce } from '@/utils/animations';
 
 export function VerseSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-24 sm:py-28">
+    <section className="relative overflow-hidden bg-white py-32 sm:py-40">
+      <WaveDivider position="top" />
+      <WaveDivider position="bottom" />
+
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.04),transparent_60%)]" />
 
       <div className="relative mx-auto flex max-w-[820px] flex-col items-center px-6 text-center">
@@ -58,5 +61,37 @@ export function VerseSection() {
         </motion.p>
       </div>
     </section>
+  );
+}
+
+function WaveDivider({ position }: { position: 'top' | 'bottom' }) {
+  const isTop = position === 'top';
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute left-0 right-0 z-10 h-[80px] sm:h-[110px] ${
+        isTop ? 'top-[-1px]' : 'bottom-[-1px] rotate-180'
+      }`}
+    >
+      <svg
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+        className="h-full w-full"
+      >
+        <motion.path
+          fill="#000"
+          initial={{ opacity: 0.95 }}
+          animate={{
+            d: [
+              'M0,0 L1440,0 L1440,60 C1200,110 960,20 720,60 C480,100 240,30 0,70 Z',
+              'M0,0 L1440,0 L1440,70 C1200,30 960,100 720,50 C480,10 240,90 0,50 Z',
+              'M0,0 L1440,0 L1440,50 C1200,90 960,10 720,70 C480,110 240,20 0,80 Z',
+              'M0,0 L1440,0 L1440,60 C1200,110 960,20 720,60 C480,100 240,30 0,70 Z',
+            ],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </svg>
+    </div>
   );
 }

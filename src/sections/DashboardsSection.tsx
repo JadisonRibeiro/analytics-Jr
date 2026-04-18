@@ -54,7 +54,7 @@ const dashboards: DashboardItem[] = [
     description: 'Controle de receitas, despesas e metas mensais com visão consolidada do patrimônio e do fluxo de caixa pessoal.',
     icon: Wallet,
     embedUrl:
-      'https://app.powerbi.com/view?r=eyJrIjoiZTgyNmEyY2MtODUyMi00MTE3LTlmMTMtMjA2NzVmMTRhMGE4IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
+      'https://app.powerbi.com/view?r=eyJrIjoiZWRjZWQ1MTMtNTQxMS00OGJlLWFkMzUtMjIyOWNkMTliN2M2IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
     accent: 'from-neon/15 to-transparent',
   },
 ];

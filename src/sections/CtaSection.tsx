@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Mail, Phone, Sparkles } from 'lucide-react';
 import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
+import { whatsappUrl, emailUrl, EMAIL, PHONE, PHONE_DISPLAY } from '@/utils/contact';
 
 const painOptions = [
   'Decisões baseadas em achismo',
@@ -171,7 +172,7 @@ export function FinalCtaSection() {
 
               <motion.div variants={fadeUp} className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <a
-                  href="https://wa.me/5591998361022"
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noreferrer"
                   data-magnetic
@@ -181,20 +182,20 @@ export function FinalCtaSection() {
                   WhatsApp
                 </a>
                 <a
-                  href="mailto:data.analyticsjr@gmail.com"
+                  href={emailUrl}
                   data-magnetic
                   className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-black transition-all hover:-translate-y-0.5 hover:border-black/30 hover:shadow-[0_18px_36px_-12px_rgba(0,0,0,0.25)]"
                 >
                   <Mail size={16} />
-                  data.analyticsjr@gmail.com
+                  {EMAIL}
                 </a>
                 <a
-                  href="tel:+5591998361022"
+                  href={`tel:+${PHONE}`}
                   data-magnetic
                   className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-black transition-all hover:-translate-y-0.5 hover:border-black/30 hover:shadow-[0_18px_36px_-12px_rgba(0,0,0,0.25)]"
                 >
                   <Phone size={16} />
-                  +55 91 99836-1022
+                  {PHONE_DISPLAY}
                 </a>
               </motion.div>
             </motion.div>

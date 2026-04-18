@@ -1,33 +1,16 @@
-import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/Button';
 import { fadeUp, stagger } from '@/utils/animations';
 import { asset } from '@/utils/asset';
 
 export function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const handleTimeUpdate = () => {
-      if (video.duration && video.currentTime >= video.duration - 0.15) {
-        video.currentTime = 0;
-        void video.play();
-      }
-    };
-    video.addEventListener('timeupdate', handleTimeUpdate);
-    return () => video.removeEventListener('timeupdate', handleTimeUpdate);
-  }, []);
-
   return (
     <section
       id="home"
       className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-brand-black pt-32 pb-20"
     >
       <video
-        ref={videoRef}
         autoPlay
         loop
         muted
@@ -80,8 +63,8 @@ export function HeroSection() {
               <Button icon={<ArrowRight size={16} />}>Começar projeto</Button>
             </a>
             <a href="#dashboards">
-              <Button variant="ghost" icon={<Play size={16} />}>
-                Ver casos
+              <Button variant="ghost" icon={<BarChart3 size={16} />}>
+                Ver dashboards
               </Button>
             </a>
           </motion.div>

@@ -1,7 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, BarChart3, LineChart, PieChart, TrendingUp, Wallet, Maximize2, type LucideIcon } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BarChart3,
+  LineChart,
+  PieChart,
+  TrendingUp,
+  Wallet,
+  type LucideIcon,
+} from 'lucide-react';
 import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
+import { asset } from '@/utils/asset';
 
 interface DashboardItem {
   title: string;
@@ -9,7 +17,8 @@ interface DashboardItem {
   description: string;
   icon: LucideIcon;
   embedUrl: string;
-  accent: string;
+  gradient: string;
+  cover: string;
 }
 
 const dashboards: DashboardItem[] = [
@@ -20,7 +29,8 @@ const dashboards: DashboardItem[] = [
     icon: TrendingUp,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiZDNmNDI4ZjktNmQzNC00OWU0LWI3MTItZmI5MGNhZTYwZWRmIiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
-    accent: 'from-neon/20 to-transparent',
+    gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
+    cover: 'dashboards/comercial.png',
   },
   {
     title: 'Análise de Projetos',
@@ -29,7 +39,8 @@ const dashboards: DashboardItem[] = [
     icon: BarChart3,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiZWJmOWE1M2UtOTVlYy00YjBkLWI0MzEtYmI2ZGNjN2MyYTBlIiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
-    accent: 'from-white/10 to-transparent',
+    gradient: 'from-sky-500/25 via-blue-500/10 to-transparent',
+    cover: 'dashboards/projetos.png',
   },
   {
     title: 'Análise de Pareto',
@@ -38,7 +49,8 @@ const dashboards: DashboardItem[] = [
     icon: PieChart,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiNmY2MGI2NjctOTJjYi00NTQzLTlmMWItMTk1ZDAwMTdjZjU0IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
-    accent: 'from-neon/15 to-transparent',
+    gradient: 'from-amber-500/20 via-orange-500/10 to-transparent',
+    cover: 'dashboards/pareto.png',
   },
   {
     title: 'Análise Financeira',
@@ -47,7 +59,8 @@ const dashboards: DashboardItem[] = [
     icon: LineChart,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiYTVmMmY1YTktY2NhYy00ZTFkLWEwODQtMDZmNWZkZDQ5OTE2IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
-    accent: 'from-white/8 to-transparent',
+    gradient: 'from-violet-500/25 via-purple-500/10 to-transparent',
+    cover: 'dashboards/financeiro.png',
   },
   {
     title: 'Finanças Pessoais',
@@ -56,52 +69,10 @@ const dashboards: DashboardItem[] = [
     icon: Wallet,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiZWRjZWQ1MTMtNTQxMS00OGJlLWFkMzUtMjIyOWNkMTliN2M2IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
-    accent: 'from-neon/15 to-transparent',
+    gradient: 'from-rose-500/20 via-pink-500/10 to-transparent',
+    cover: 'dashboards/financas-pessoais.png',
   },
 ];
-
-function LazyEmbed({ title, src }: { title: string; src: string }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    if (!ref.current || mounted) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setMounted(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '300px 0px' },
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [mounted]);
-
-  return (
-    <div ref={ref} className="absolute inset-0">
-      {mounted ? (
-        <iframe
-          title={title}
-          src={src}
-          loading="lazy"
-          allowFullScreen
-          className="h-full w-full border-0"
-        />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white/[0.04] via-black to-black">
-          <div className="flex flex-col items-center gap-3">
-            <div className="h-10 w-10 animate-pulse rounded-full bg-white/10" />
-            <span className="text-[10px] uppercase tracking-[0.32em] text-white/40">
-              Carregando dashboard…
-            </span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 export function DashboardsSection() {
   return (
@@ -131,7 +102,7 @@ export function DashboardsSection() {
             </motion.h2>
           </div>
           <motion.p variants={fadeUp} className="max-w-[460px] text-lg text-gray-5">
-            Cinco projetos entregues pela Analytics JR — navegue pelos filtros e veja como transformamos dado bruto em decisão.
+            Cinco projetos entregues pela Analytics JR — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
           </motion.p>
         </motion.div>
 
@@ -140,63 +111,67 @@ export function DashboardsSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={staggerFast}
-          className="grid gap-8 [perspective:1400px] md:grid-cols-2"
+          className="grid gap-8 md:grid-cols-2"
         >
-          {dashboards.map((d, i) => (
-            <motion.article
+          {dashboards.map((d) => (
+            <motion.a
               key={d.title}
+              href={d.embedUrl}
+              target="_blank"
+              rel="noreferrer"
               variants={cardReveal}
-              custom={i}
               whileHover={{ y: -6, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] hover:border-white/25 hover:shadow-[0_40px_80px_-24px_rgba(0,0,0,0.7)]"
+              className="group relative block overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] hover:border-white/25 hover:shadow-[0_40px_80px_-24px_rgba(0,0,0,0.7)]"
             >
-              <div
-                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${d.accent} opacity-0 transition-opacity duration-700 group-hover:opacity-100`}
-              />
+              <div className={`relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br ${d.gradient}`}>
+                <img
+                  src={asset(d.cover)}
+                  alt={`Prévia do ${d.title}`}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                  }}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
-              <div className="relative">
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
-                  <LazyEmbed title={d.title} src={d.embedUrl} />
-                  <a
-                    href={d.embedUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Abrir ${d.title} em nova aba`}
-                    className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/60 px-3 py-1.5 text-[11px] font-medium text-white opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100 hover:bg-black/80"
-                  >
-                    <Maximize2 size={12} />
-                    Abrir em tela cheia
-                  </a>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                    <span className="text-[10px] uppercase tracking-[0.24em] text-white/80">Ao vivo</span>
+                  </div>
+                  <span className="rounded-full border border-white/30 bg-black/50 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] text-white backdrop-blur">
+                    Clique para explorar
+                  </span>
                 </div>
 
-                <div className="border-t border-white/10 p-7 sm:p-8">
-                  <div className="flex items-center justify-between">
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-gray-5">
-                      {d.category}
-                    </span>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10">
-                      <d.icon size={16} className="text-white" />
-                    </div>
-                  </div>
-
-                  <h3 className="mt-6 font-heading text-2xl font-semibold text-white sm:text-[26px]">
-                    {d.title}
-                  </h3>
-                  <p className="mt-3 text-gray-5">{d.description}</p>
-
-                  <a
-                    href={d.embedUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-magnetic
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-neon transition hover:gap-3 hover:text-white"
-                  >
-                    Explorar dashboard
-                    <ArrowUpRight size={14} />
-                  </a>
+                <div className="pointer-events-none absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-black/50 ring-1 ring-white/20 backdrop-blur">
+                  <d.icon size={20} className="text-white" strokeWidth={1.7} />
                 </div>
               </div>
-            </motion.article>
+
+              <div className="border-t border-white/10 p-7 sm:p-8">
+                <div className="flex items-center justify-between">
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-gray-5">
+                    {d.category}
+                  </span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1">
+                    <ArrowUpRight size={16} className="text-white" />
+                  </div>
+                </div>
+
+                <h3 className="mt-6 font-heading text-2xl font-semibold text-white sm:text-[26px]">
+                  {d.title}
+                </h3>
+                <p className="mt-3 text-gray-5">{d.description}</p>
+
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-neon transition group-hover:gap-3 group-hover:text-white">
+                  Abrir dashboard
+                  <ArrowUpRight size={14} />
+                </div>
+              </div>
+            </motion.a>
           ))}
         </motion.div>
 

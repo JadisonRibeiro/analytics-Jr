@@ -4,38 +4,14 @@ import { Quote, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { asset } from '@/utils/asset';
 
-interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
-}
-
-const items: Testimonial[] = [
-  {
-    quote: 'A Analytics JR traduziu o caos de 5 ERPs em um dashboard único. Nossa diretoria finalmente decide com dados na mão — e o impacto no resultado apareceu no primeiro trimestre.',
-    name: 'Marina Rocha',
-    role: 'CFO',
-    company: 'Aurora Retail',
-  },
-  {
-    quote: 'Esperava um relatório bonito. Ganhei uma ferramenta de decisão. Em 60 dias passamos a reagir ao mercado antes do concorrente.',
-    name: 'Diego Arantes',
-    role: 'Head of Growth',
-    company: 'Luminar Tech',
-    },
-  {
-    quote: 'Time sênior, processo limpo, entregas no prazo. Os dashboards viraram ritual diário do nosso comitê executivo.',
-    name: 'Patrícia Leal',
-    role: 'COO',
-    company: 'Polaris Saúde',
-  },
-  {
-    quote: 'O retorno veio rápido: 340% em 6 meses. Mais importante: passamos a operar com previsibilidade que nunca tivemos.',
-    name: 'Rafael Medeiros',
-    role: 'CEO',
-    company: 'Vertex Indústria',
-  },
+const items: string[] = [
+  'Finalmente consigo olhar a operação inteira em um lugar só. A rotina ficou mais leve e as decisões, mais rápidas.',
+  'A reunião semanal mudou de tom. Agora discutimos o que fazer — não mais se o número está certo.',
+  'Antes era difícil confiar nos relatórios. Depois do projeto, o debate passou a ser o que fazer com os dados.',
+  'O time entendeu o nosso negócio antes mesmo de abrir o Power BI. Isso fez toda a diferença no resultado.',
+  'Não recebi só um painel bonito. Recebi clareza sobre quais métricas realmente importam no meu dia a dia.',
+  'O suporte pós-entrega foi o que mais me surpreendeu. Continuam evoluindo o dashboard junto com a gente.',
+  'Consigo abrir a visão da empresa no celular, no meio da rua. Isso mudou a forma como acompanho o negócio.',
 ];
 
 export function TestimonialsSection() {
@@ -113,23 +89,8 @@ export function TestimonialsSection() {
                 ))}
               </div>
               <p className="relative mt-6 text-xl leading-relaxed text-black sm:text-2xl">
-                {items[i].quote}
+                ({items[i]})
               </p>
-              <div className="relative mt-10 flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black font-heading text-sm font-bold text-white">
-                  {items[i].name
-                    .split(' ')
-                    .map((w) => w[0])
-                    .slice(0, 2)
-                    .join('')}
-                </div>
-                <div>
-                  <div className="font-heading font-semibold text-black">{items[i].name}</div>
-                  <div className="text-sm text-black/60">
-                    {items[i].role} • {items[i].company}
-                  </div>
-                </div>
-              </div>
             </motion.div>
           </AnimatePresence>
 

@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
-import { asset } from '@/utils/asset';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,7 +31,6 @@ export function HowItWorksSection() {
   const lineRef = useRef<SVGLineElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     if (!lineRef.current || !wrapRef.current) return;
@@ -55,37 +53,9 @@ export function HowItWorksSection() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setVideoReady(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '400px 0px' },
-    );
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section ref={sectionRef} id="processo" className="relative overflow-hidden bg-brand-black py-28">
-        {videoReady && (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            disablePictureInPicture
-            aria-hidden
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-80 [filter:saturate(1.15)_contrast(1.08)]"
-          >
-            <source src={asset('hero.mp4')} type="video/mp4" />
-          </video>
-        )}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(192,192,192,0.08),transparent_55%),radial-gradient(circle_at_80%_80%,rgba(192,192,192,0.05),transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,10,10,0.25)_0%,rgba(10,10,10,0.55)_70%,rgba(10,10,10,0.8)_100%)]" />
         <div className="relative z-10 mx-auto max-w-[1280px] px-6">
           <motion.div

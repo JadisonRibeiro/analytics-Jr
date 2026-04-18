@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
-
-const PHONE = '5591998361022';
-const MSG = 'Olá! Vim pelo site da Analytics JR e quero conversar.';
+import { whatsappUrl } from '@/utils/contact';
 
 export function WhatsAppButton() {
   const [show, setShow] = useState(false);
@@ -13,8 +11,6 @@ export function WhatsAppButton() {
     const t = setTimeout(() => setShow(true), 1600);
     return () => clearTimeout(t);
   }, []);
-
-  const href = `https://wa.me/${PHONE}?text=${encodeURIComponent(MSG)}`;
 
   return (
     <AnimatePresence>
@@ -42,7 +38,7 @@ export function WhatsAppButton() {
           </AnimatePresence>
 
           <a
-            href={href}
+            href={whatsappUrl}
             target="_blank"
             rel="noreferrer"
             data-magnetic

@@ -1,6 +1,7 @@
 import { Instagram, Mail, ArrowUp } from 'lucide-react';
 import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
 import { asset } from '@/utils/asset';
+import { INSTAGRAM, whatsappUrl, emailUrl, EMAIL, PHONE_DISPLAY } from '@/utils/contact';
 
 export function Footer() {
   return (
@@ -24,7 +25,7 @@ export function Footer() {
             </p>
             <div className="mt-6 flex gap-3">
               <a
-                href="https://instagram.com/analyticsjr"
+                href={INSTAGRAM}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
@@ -34,7 +35,7 @@ export function Footer() {
                 <Instagram size={16} />
               </a>
               <a
-                href="https://wa.me/5591998361022"
+                href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="WhatsApp"
@@ -44,7 +45,7 @@ export function Footer() {
                 <WhatsAppIcon size={16} />
               </a>
               <a
-                href="mailto:data.analyticsjr@gmail.com"
+                href={emailUrl}
                 aria-label="E-mail"
                 data-magnetic
                 className="rounded-full border border-white/15 p-2.5 text-gray-5 transition hover:border-white hover:bg-white hover:text-brand-black"
@@ -71,13 +72,18 @@ export function Footer() {
             <div className="mb-4 text-[11px] uppercase tracking-[0.28em] text-gray-4">Contato</div>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="mailto:data.analyticsjr@gmail.com" className="hover:text-white">
-                  data.analyticsjr@gmail.com
+                <a href={emailUrl} className="hover:text-white">
+                  {EMAIL}
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/5591998361022" className="hover:text-white">
-                  +55 91 99836-1022
+                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="hover:text-white">
+                  {PHONE_DISPLAY}
+                </a>
+              </li>
+              <li>
+                <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="hover:text-white">
+                  @analytics.jr
                 </a>
               </li>
               <li>Brasil</li>

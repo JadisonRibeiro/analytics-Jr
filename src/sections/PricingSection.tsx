@@ -1,56 +1,57 @@
 import { motion } from 'framer-motion';
-import { Check, ArrowRight, Sparkles } from 'lucide-react';
+import {
+  ArrowRight,
+  LayoutDashboard,
+  Database,
+  RefreshCw,
+  ShieldCheck,
+  GraduationCap,
+  Headphones,
+  Sparkles,
+  Users,
+} from 'lucide-react';
 import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
 
-interface Plan {
-  name: string;
-  description: string;
-  features: string[];
-  featured?: boolean;
-  cta: string;
-  badge?: string;
-}
-
-const plans: Plan[] = [
+const benefits = [
   {
-    name: 'Starter',
-    description: 'Para quem está começando a estruturar a operação de dados.',
-    features: [
-      '1 dashboard estratégico',
-      'Até 3 fontes de dados',
-      'Atualização diária',
-      'Suporte em horário comercial',
-      'Onboarding de 2 usuários',
-    ],
-    cta: 'Solicitar proposta',
+    icon: LayoutDashboard,
+    title: 'Dashboards sob medida',
+    desc: 'Painéis em Power BI desenhados para as decisões do seu negócio.',
   },
   {
-    name: 'Pro',
-    description: 'Para empresas que já precisam de analytics como vantagem competitiva.',
-    features: [
-      'Até 4 dashboards interativos',
-      'Até 8 fontes de dados',
-      'Atualização a cada 4h',
-      'Governança e RLS',
-      'Suporte prioritário',
-      'Treinamento do time (8h)',
-    ],
-    featured: true,
-    badge: 'Mais escolhido',
-    cta: 'Solicitar proposta',
+    icon: Database,
+    title: 'Integração das fontes',
+    desc: 'ERP, CRM, planilhas e APIs conectados em uma única base confiável.',
   },
   {
-    name: 'Enterprise',
-    description: 'Solução sob medida com squad dedicado e SLA robusto.',
-    features: [
-      'Dashboards ilimitados',
-      'Integrações ilimitadas',
-      'Atualização quase em tempo real',
-      'Squad dedicado',
-      'SLA 24/7',
-      'Consultoria estratégica mensal',
-    ],
-    cta: 'Falar com vendas',
+    icon: RefreshCw,
+    title: 'Atualização automática',
+    desc: 'Dados sempre frescos, sem retrabalho manual do seu time.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Governança e segurança',
+    desc: 'RLS, versionamento e controle de acesso em todos os projetos.',
+  },
+  {
+    icon: GraduationCap,
+    title: 'Treinamento do time',
+    desc: 'Capacitamos seus usuários para extrair valor real dos painéis.',
+  },
+  {
+    icon: Headphones,
+    title: 'Suporte contínuo',
+    desc: 'Evolução e monitoria após a entrega — não sumimos depois do go-live.',
+  },
+  {
+    icon: Users,
+    title: 'Squad próximo',
+    desc: 'Comunicação direta com quem constrói, sem camadas intermediárias.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Consultoria estratégica',
+    desc: 'Orientação de especialistas para priorizar o que gera mais impacto.',
   },
 ];
 
@@ -73,14 +74,17 @@ export function PricingSection() {
           </motion.span>
           <motion.h2
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[720px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-tight text-gradient-wg"
+            className="mx-auto mt-4 max-w-[760px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-tight text-gradient-wg"
           >
-            Escolha o plano
+            Temos planos sob medida
             <br className="hidden sm:block" />
-            que acelera sua operação.
+            para cada estágio da sua operação.
           </motion.h2>
-          <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-[520px] text-gray-5">
-            Cada proposta é montada sob medida, conforme volume de dados, integrações e maturidade analítica do seu time.
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mt-6 max-w-[620px] text-lg text-gray-5"
+          >
+            Cada proposta é apresentada em uma reunião estratégica, onde entendemos o contexto do seu negócio e desenhamos o escopo ideal. Estes são os benefícios que acompanham nossos planos.
           </motion.p>
         </motion.div>
 
@@ -89,78 +93,44 @@ export function PricingSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={staggerFast}
-          className="grid gap-5 [perspective:1400px] md:grid-cols-3"
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {plans.map((p) => (
+          {benefits.map((b) => (
             <motion.div
-              key={p.name}
+              key={b.title}
               variants={cardReveal}
-              className={`relative overflow-hidden rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 ${
-                p.featured
-                  ? 'bg-gradient-to-b from-white to-[#F4F4F2] shadow-[0_40px_80px_-20px_rgba(255,255,255,0.25)] ring-1 ring-white/40 lg:-translate-y-4 lg:scale-[1.02] hover:lg:-translate-y-5'
-                  : 'border border-white/10 bg-white/[0.02]'
-              }`}
+              whileHover={{ y: -4, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
+              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)]"
             >
-              {p.featured && (
-                <>
-                  <div className="pointer-events-none absolute -left-32 -top-32 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.05),transparent_65%)]" />
-                  <div className="pointer-events-none absolute -bottom-40 -right-40 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.04),transparent_65%)]" />
-                  <span className="absolute right-6 top-6 inline-flex items-center gap-1 rounded-full bg-black px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-white">
-                    <Sparkles size={10} /> {p.badge}
-                  </span>
-                </>
-              )}
-              <div className={`relative font-heading text-2xl font-bold ${p.featured ? 'text-black' : 'text-white'}`}>
-                {p.name}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/[0.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] ring-1 ring-black/[0.06]">
+                <b.icon size={20} className="text-black" />
               </div>
-              <p className={`relative mt-3 min-h-[56px] text-sm ${p.featured ? 'text-black/65' : 'text-gray-5'}`}>
-                {p.description}
-              </p>
-
-              <div
-                className={`relative mt-8 h-[1px] w-full ${
-                  p.featured
-                    ? 'bg-gradient-to-r from-black/25 via-black/10 to-transparent'
-                    : 'bg-gradient-to-r from-white/20 via-white/5 to-transparent'
-                }`}
-              />
-
-              <ul className="relative mt-7 space-y-3">
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-sm">
-                    <Check
-                      size={15}
-                      className={`mt-0.5 shrink-0 ${p.featured ? 'text-black' : 'text-white'}`}
-                    />
-                    <span className={p.featured ? 'text-black/80' : 'text-gray-5'}>{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href="#cta"
-                data-magnetic
-                className={`relative mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-medium transition ${
-                  p.featured
-                    ? 'bg-black text-white hover:-translate-y-0.5 hover:bg-black/85 hover:shadow-[0_18px_36px_-12px_rgba(0,0,0,0.4)]'
-                    : 'border border-white/15 text-white hover:border-white hover:bg-white/5'
-                }`}
-              >
-                {p.cta} <ArrowRight size={14} />
-              </a>
+              <h3 className="relative mt-6 font-heading text-lg font-semibold text-black">{b.title}</h3>
+              <p className="relative mt-3 text-sm leading-relaxed text-black/60">{b.desc}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
           variants={fadeUp}
-          className="mt-10 text-center text-sm text-gray-5"
+          className="mt-16 flex flex-col items-center gap-4 text-center"
         >
-          Investimento sob consulta, personalizado conforme o escopo do projeto.
-        </motion.p>
+          <p className="max-w-[520px] text-gray-5">
+            Vamos conversar sobre qual plano faz sentido para o seu momento.
+          </p>
+          <a
+            href="#cta"
+            data-magnetic
+            className="btn btn-primary"
+          >
+            Agendar reunião
+            <ArrowRight size={14} />
+          </a>
+        </motion.div>
       </div>
     </section>
   );

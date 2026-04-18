@@ -32,7 +32,7 @@ export function HeroSection() {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         disablePictureInPicture
         className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-60 [filter:saturate(1.15)_contrast(1.08)]"
       >

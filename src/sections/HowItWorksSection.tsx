@@ -78,7 +78,7 @@ export function HowItWorksSection() {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             disablePictureInPicture
             aria-hidden
             className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-80 [filter:saturate(1.15)_contrast(1.08)]"

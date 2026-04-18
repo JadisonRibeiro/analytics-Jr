@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, BarChart3, LineChart, PieChart, TrendingUp, Wallet, Maximize2, type LucideIcon } from 'lucide-react';
 import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
@@ -59,6 +60,49 @@ const dashboards: DashboardItem[] = [
   },
 ];
 
+function LazyEmbed({ title, src }: { title: string; src: string }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current || mounted) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setMounted(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px 0px' },
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [mounted]);
+
+  return (
+    <div ref={ref} className="absolute inset-0">
+      {mounted ? (
+        <iframe
+          title={title}
+          src={src}
+          loading="lazy"
+          allowFullScreen
+          className="h-full w-full border-0"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white/[0.04] via-black to-black">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-10 w-10 animate-pulse rounded-full bg-white/10" />
+            <span className="text-[10px] uppercase tracking-[0.32em] text-white/40">
+              Carregando dashboard…
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function DashboardsSection() {
   return (
     <section id="dashboards" className="relative overflow-hidden bg-brand-black py-28">
@@ -112,13 +156,7 @@ export function DashboardsSection() {
 
               <div className="relative">
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
-                  <iframe
-                    title={d.title}
-                    src={d.embedUrl}
-                    loading="lazy"
-                    allowFullScreen
-                    className="absolute inset-0 h-full w-full border-0"
-                  />
+                  <LazyEmbed title={d.title} src={d.embedUrl} />
                   <a
                     href={d.embedUrl}
                     target="_blank"

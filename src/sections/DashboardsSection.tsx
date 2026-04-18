@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight, BarChart3, LineChart, PieChart, TrendingUp, Maximize2, type LucideIcon } from 'lucide-react';
+import { ArrowUpRight, BarChart3, LineChart, PieChart, TrendingUp, Wallet, Maximize2, type LucideIcon } from 'lucide-react';
 import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
 
 interface DashboardItem {
@@ -48,6 +48,15 @@ const dashboards: DashboardItem[] = [
       'https://app.powerbi.com/view?r=eyJrIjoiYTVmMmY1YTktY2NhYy00ZTFkLWEwODQtMDZmNWZkZDQ5OTE2IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
     accent: 'from-white/8 to-transparent',
   },
+  {
+    title: 'Finanças Pessoais',
+    category: 'Rastreamento Pessoal',
+    description: 'Controle de receitas, despesas e metas mensais com visão consolidada do patrimônio e do fluxo de caixa pessoal.',
+    icon: Wallet,
+    embedUrl:
+      'https://app.powerbi.com/view?r=eyJrIjoiZTgyNmEyY2MtODUyMi00MTE3LTlmMTMtMjA2NzVmMTRhMGE4IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
+    accent: 'from-neon/15 to-transparent',
+  },
 ];
 
 export function DashboardsSection() {
@@ -78,7 +87,7 @@ export function DashboardsSection() {
             </motion.h2>
           </div>
           <motion.p variants={fadeUp} className="max-w-[460px] text-lg text-gray-5">
-            Quatro projetos entregues pela Analytics JR — navegue pelos filtros e veja como transformamos dado bruto em decisão.
+            Cinco projetos entregues pela Analytics JR — navegue pelos filtros e veja como transformamos dado bruto em decisão.
           </motion.p>
         </motion.div>
 

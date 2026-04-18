@@ -75,15 +75,9 @@ export function ProblemSection() {
               className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-8 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)]"
             >
               <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-black/[0.03] blur-2xl transition-all duration-700 group-hover:bg-black/[0.06]" />
-              <motion.div
-                initial={{ scale: 0, rotate: -12 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={viewportOnce}
-                transition={{ type: 'spring', stiffness: 200, damping: 18, delay: 0.25 }}
-                className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] ring-1 ring-black/[0.06] transition-all duration-500 group-hover:scale-110 group-hover:bg-black/[0.08]"
-              >
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] ring-1 ring-black/[0.06]">
                 <p.icon size={22} className="text-black" />
-              </motion.div>
+              </div>
               <h3 className="relative mt-6 font-heading text-xl font-semibold text-black">{p.title}</h3>
               <p className="relative mt-3 leading-relaxed text-black/60">{p.desc}</p>
               <div className="relative mt-8 h-[1px] w-full bg-gradient-to-r from-black/15 via-black/5 to-transparent" />

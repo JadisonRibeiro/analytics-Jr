@@ -68,15 +68,9 @@ export function ServicesSection() {
             >
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/[0.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="relative flex items-start justify-between">
-                <motion.div
-                  initial={{ scale: 0, rotate: -12 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={viewportOnce}
-                  transition={{ type: 'spring', stiffness: 200, damping: 18, delay: 0.2 }}
-                  className="flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] text-black ring-1 ring-black/[0.06] transition-all duration-500 group-hover:scale-110 group-hover:bg-black/[0.08]"
-                >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] text-black ring-1 ring-black/[0.06]">
                   <s.icon size={20} />
-                </motion.div>
+                </div>
                 <ArrowUpRight size={18} className="translate-y-1 text-black/40 transition-all group-hover:-translate-y-0 group-hover:text-black" />
               </div>
               <h3 className="relative mt-6 font-heading text-lg font-semibold text-black">{s.title}</h3>

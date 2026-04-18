@@ -80,15 +80,9 @@ export function PurposeSection() {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white via-white/40 to-transparent" />
-                <motion.div
-                  initial={{ scale: 0, rotate: -12 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={viewportOnce}
-                  transition={{ type: 'spring', stiffness: 200, damping: 18, delay: 0.25 }}
-                  className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white ring-1 ring-black/10 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.2)] transition-all duration-500 group-hover:scale-110"
-                >
+                <div className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white ring-1 ring-black/10 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.2)]">
                   <p.icon size={22} className="text-black" />
-                </motion.div>
+                </div>
               </div>
               <div className="relative flex flex-1 flex-col p-8">
                 <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-black/[0.03] blur-2xl transition-all duration-700 group-hover:bg-black/[0.06]" />

@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
-import { asset } from '@/utils/asset';
+import { FuturePulse } from '@/components/FuturePulse';
 
 export function VisionSection() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -11,8 +11,6 @@ export function VisionSection() {
     offset: ['start end', 'end start'],
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 1.04]);
   const cardRadius = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [80, 40, 40, 80]);
 
   return (
@@ -107,28 +105,7 @@ export function VisionSection() {
               className="relative"
             >
               <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[40px] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.1),transparent_70%)] blur-2xl" />
-              <div className="relative overflow-hidden rounded-[32px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] ring-1 ring-black/5">
-                <motion.img
-                  src={asset('Futuro.jpg')}
-                  alt="Futuro orientado por dados"
-                  loading="lazy"
-                  style={{ y: imageY, scale: imageScale }}
-                  className="block h-auto w-full"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                  <div className="flex items-center gap-3">
-                    <span className="relative flex h-2 w-2">
-                      <span className="absolute inset-0 animate-ping rounded-full bg-white opacity-75" />
-                      <span className="relative h-2 w-2 rounded-full bg-white" />
-                    </span>
-                    <span className="text-[10px] uppercase tracking-[0.28em] text-white/90">Vision • 2026</span>
-                  </div>
-                  <p className="mt-3 max-w-[360px] font-heading text-lg font-semibold text-white sm:text-xl">
-                    Analytics como extensão natural da estratégia.
-                  </p>
-                </div>
-              </div>
+              <FuturePulse />
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, rotate: -8 }}

@@ -30,7 +30,7 @@ export function VisionSection() {
           <div className="pointer-events-none absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.05),transparent_65%)]" />
           <div className="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.04),transparent_65%)]" />
 
-          <div className="relative grid items-center gap-10 p-8 sm:p-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:p-20">
+          <div className="relative grid items-stretch gap-10 p-5 sm:p-10 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:p-20">
             <motion.div
               initial="hidden"
               whileInView="show"
@@ -100,7 +100,7 @@ export function VisionSection() {
             <motion.div
               initial={{ opacity: 0, scale: 0.92 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={viewportOnce}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
               className="relative"
             >

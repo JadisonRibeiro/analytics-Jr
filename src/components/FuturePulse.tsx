@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { TrendingUp } from 'lucide-react';
-import { viewportOnce } from '@/utils/animations';
 import './future-pulse.css';
+
+const fpViewport = { once: true, amount: 0.05 } as const;
 
 const W = 540;
 const H = 220;
@@ -97,7 +98,7 @@ export function FuturePulse() {
         className="fp-kpis"
         initial="hidden"
         whileInView="show"
-        viewport={viewportOnce}
+        viewport={fpViewport}
         variants={{
           hidden: {},
           show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
@@ -160,7 +161,7 @@ export function FuturePulse() {
             fill="url(#fpArea)"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 1.2, delay: 0.6, ease: 'easeOut' }}
           />
 
@@ -170,7 +171,7 @@ export function FuturePulse() {
             fill="url(#fpConf)"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 0.8, delay: 1.6, ease: 'easeOut' }}
           />
 
@@ -178,7 +179,7 @@ export function FuturePulse() {
           <motion.g
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 0.5, delay: 1.2 }}
           >
             <line
@@ -210,7 +211,7 @@ export function FuturePulse() {
             strokeLinejoin="round"
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 1.3, delay: 0.7, ease: 'easeInOut' }}
           />
 
@@ -225,7 +226,7 @@ export function FuturePulse() {
             strokeDasharray="5 5"
             initial={{ pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 1.2, delay: 1.8, ease: 'easeInOut' }}
           />
 
@@ -235,7 +236,7 @@ export function FuturePulse() {
               key={`h-${i}`}
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={viewportOnce}
+              viewport={fpViewport}
               transition={{
                 duration: 0.4,
                 delay: 0.9 + i * 0.1,
@@ -258,7 +259,7 @@ export function FuturePulse() {
           <motion.g
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 0.5, delay: 3, ease: [0.34, 1.56, 0.64, 1] }}
             style={{ transformBox: 'fill-box' }}
           >
@@ -277,7 +278,7 @@ export function FuturePulse() {
               className="fp-axis-label"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={viewportOnce}
+              viewport={fpViewport}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               {m.label}
@@ -291,7 +292,7 @@ export function FuturePulse() {
             style={{ fill: '#5EEAD4' }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 0.5, delay: 3.1 }}
           >
             +3M
@@ -303,7 +304,7 @@ export function FuturePulse() {
         className="fp-footer"
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={viewportOnce}
+        viewport={fpViewport}
         transition={{ duration: 0.7, delay: 2.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <svg className="fp-gauge" viewBox="0 0 44 44" aria-hidden>
@@ -316,7 +317,7 @@ export function FuturePulse() {
             strokeDasharray={`${GAUGE_FILL} ${GAUGE_CIRC}`}
             initial={{ strokeDashoffset: GAUGE_CIRC }}
             whileInView={{ strokeDashoffset: 0 }}
-            viewport={viewportOnce}
+            viewport={fpViewport}
             transition={{ duration: 1.4, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
             transform="rotate(-90 22 22)"
           />

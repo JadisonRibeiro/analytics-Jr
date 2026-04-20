@@ -71,10 +71,10 @@ export function Header() {
         <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger asChild>
             <button
-              className="rounded-full border border-white/10 bg-white/5 p-2 text-white md:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white shadow-[0_4px_10px_-2px_rgba(0,0,0,0.5)] backdrop-blur transition hover:bg-white/20 md:hidden"
               aria-label="Abrir menu"
             >
-              <Menu size={18} />
+              <Menu size={22} strokeWidth={2.5} />
             </button>
           </Dialog.Trigger>
           <Dialog.Portal>

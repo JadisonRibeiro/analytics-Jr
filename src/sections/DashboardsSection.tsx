@@ -94,7 +94,7 @@ export function DashboardsSection() {
             </motion.span>
             <motion.h2
               variants={fadeUp}
-              className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-tight text-gradient-wg"
+              className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
             >
               Painéis reais
               <br className="hidden sm:block" />

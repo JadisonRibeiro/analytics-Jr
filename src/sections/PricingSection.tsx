@@ -74,7 +74,7 @@ export function PricingSection() {
           </motion.span>
           <motion.h2
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[760px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-tight text-gradient-wg"
+            className="mx-auto mt-4 max-w-[760px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
           >
             Temos planos sob medida
             <br className="hidden sm:block" />

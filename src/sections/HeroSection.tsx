@@ -40,7 +40,7 @@ export function HeroSection() {
 
           <motion.h1
             variants={fadeUp}
-            className="font-heading font-black uppercase leading-[1.02] tracking-[-0.01em] text-gradient-wg"
+            className="font-heading font-black uppercase leading-[1.15] tracking-normal text-gradient-wg sm:leading-[1.02] sm:tracking-[-0.01em]"
             style={{ fontSize: 'clamp(2rem, 5.2vw, 4.25rem)' }}
           >
             Transformando dados

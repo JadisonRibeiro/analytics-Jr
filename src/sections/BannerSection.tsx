@@ -29,7 +29,7 @@ export function BannerSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="mx-auto mt-6 max-w-[820px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-tight text-black"
+            className="mx-auto mt-6 max-w-[820px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-black"
           >
             A força dos dados
             <br className="hidden sm:block" />

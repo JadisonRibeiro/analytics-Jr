@@ -53,7 +53,7 @@ export function FaqSection() {
           <motion.span variants={fadeUp} className="eyebrow justify-center text-gray-5">FAQ</motion.span>
           <motion.h2
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[640px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.05] tracking-tight text-gradient-wg"
+            className="mx-auto mt-4 max-w-[640px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
           >
             Dúvidas frequentes.
           </motion.h2>

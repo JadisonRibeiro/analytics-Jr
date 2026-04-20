@@ -45,17 +45,17 @@ function MarqueeRow({ words, baseVelocity, tilt, active }: MarqueeRowProps) {
 
   return (
     <div
-      className="pointer-events-none relative w-[140%] overflow-hidden"
+      className="pointer-events-none relative w-[140%] overflow-hidden bg-white py-0.5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] sm:py-1"
       style={{ transform: `rotate(${tilt}deg)`, transformOrigin: '50% 50%' }}
     >
       <motion.div
         style={{ x }}
-        className="flex whitespace-nowrap gap-5 sm:gap-10 md:gap-14"
+        className="flex whitespace-nowrap gap-4 sm:gap-8 md:gap-12"
       >
         {repeated.map((w, i) => (
           <span
             key={`${w}-${i}`}
-            className="flex items-center gap-5 font-heading text-[clamp(1.1rem,3.6vw,4rem)] font-black uppercase tracking-tight text-black sm:gap-10 md:gap-14"
+            className="flex items-center gap-4 font-heading text-[clamp(0.75rem,2.2vw,2.25rem)] font-black uppercase tracking-tight text-black sm:gap-8 md:gap-12"
           >
             {w}
             <span
@@ -93,8 +93,10 @@ export function DataMarqueeSection({ wordsA, wordsB, speed = 3 }: DataMarqueeSec
     <section
       ref={sectionRef}
       aria-hidden
-      className="relative isolate flex min-h-[200px] items-center justify-center overflow-hidden bg-white py-10 sm:min-h-[260px] sm:py-14"
+      className="relative isolate flex min-h-[220px] items-center justify-center overflow-hidden bg-brand-black py-12 sm:min-h-[280px] sm:py-16"
     >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(192,192,192,0.12),transparent_60%)]" />
+
       <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-center">
         <div className="w-full -translate-x-[10%]">
           <MarqueeRow words={wordsA} baseVelocity={-speed} tilt={-12} active={active} />
@@ -105,9 +107,6 @@ export function DataMarqueeSection({ wordsA, wordsB, speed = 3 }: DataMarqueeSec
           <MarqueeRow words={wordsB} baseVelocity={speed} tilt={12} active={active} />
         </div>
       </div>
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent sm:w-24" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent sm:w-24" />
     </section>
   );
 }

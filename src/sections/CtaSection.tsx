@@ -146,7 +146,7 @@ export function FinalCtaSection() {
 
               <motion.h2
                 variants={fadeUp}
-                className="mt-6 font-heading text-[clamp(2.2rem,5vw,4rem)] font-bold uppercase leading-[0.98] tracking-[-0.02em] text-black"
+                className="mt-6 font-heading text-[clamp(2.2rem,5vw,4rem)] font-bold uppercase leading-[1.15] tracking-normal sm:leading-[0.98] sm:tracking-[-0.02em] text-black"
               >
                 Pronto para decidir
                 <br className="hidden sm:block" />

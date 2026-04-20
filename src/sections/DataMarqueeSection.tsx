@@ -45,24 +45,22 @@ function MarqueeRow({ words, baseVelocity, tilt, active }: MarqueeRowProps) {
 
   return (
     <div
-      className="pointer-events-none relative w-[140%] -ml-[20%] overflow-hidden"
-      style={{ transform: `rotate(${tilt}deg)` }}
+      className="pointer-events-none relative w-[140%] overflow-hidden"
+      style={{ transform: `rotate(${tilt}deg)`, transformOrigin: '50% 50%' }}
     >
       <motion.div
         style={{ x }}
-        className="flex whitespace-nowrap gap-10 sm:gap-14"
+        className="flex whitespace-nowrap gap-5 sm:gap-10 md:gap-14"
       >
         {repeated.map((w, i) => (
           <span
             key={`${w}-${i}`}
-            className="flex items-center gap-10 font-heading text-[clamp(2.25rem,6.5vw,5.5rem)] font-black uppercase tracking-tight text-transparent sm:gap-14"
-            style={{ WebkitTextStroke: '1px rgba(255,255,255,0.35)' }}
+            className="flex items-center gap-5 font-heading text-[clamp(1.1rem,3.6vw,4rem)] font-black uppercase tracking-tight text-black sm:gap-10 md:gap-14"
           >
             {w}
             <span
               aria-hidden
-              className="inline-block h-1.5 w-1.5 rounded-full bg-neon/70 sm:h-2 sm:w-2"
-              style={{ WebkitTextStroke: '0' }}
+              className="inline-block h-1 w-1 rounded-full bg-black/35 sm:h-1.5 sm:w-1.5"
             />
           </span>
         ))}
@@ -95,18 +93,21 @@ export function DataMarqueeSection({ wordsA, wordsB, speed = 3 }: DataMarqueeSec
     <section
       ref={sectionRef}
       aria-hidden
-      className="relative isolate flex min-h-[280px] items-center justify-center overflow-hidden bg-brand-black py-16 sm:min-h-[320px]"
+      className="relative isolate flex min-h-[200px] items-center justify-center overflow-hidden bg-white py-10 sm:min-h-[260px] sm:py-14"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(192,192,192,0.12),transparent_60%)]" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(163,230,53,0.1),transparent_70%)] blur-2xl" />
-
-      <div className="relative flex w-full flex-col items-center justify-center gap-1 sm:gap-2">
-        <MarqueeRow words={wordsA} baseVelocity={-speed} tilt={-10} active={active} />
-        <MarqueeRow words={wordsB} baseVelocity={speed} tilt={10} active={active} />
+      <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-center">
+        <div className="w-full -translate-x-[10%]">
+          <MarqueeRow words={wordsA} baseVelocity={-speed} tilt={-12} active={active} />
+        </div>
+      </div>
+      <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-center">
+        <div className="w-full -translate-x-[10%]">
+          <MarqueeRow words={wordsB} baseVelocity={speed} tilt={12} active={active} />
+        </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-brand-black to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-brand-black to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent sm:w-24" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent sm:w-24" />
     </section>
   );
 }

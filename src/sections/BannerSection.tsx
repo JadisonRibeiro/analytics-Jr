@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { viewportOnce } from '@/utils/animations';
-import { asset } from '@/utils/asset';
+import { PipelineAnimation } from '@/components/PipelineAnimation';
 
 export function BannerSection() {
   return (
@@ -67,29 +67,8 @@ export function BannerSection() {
           className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[60%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.18),transparent_70%)] blur-3xl"
         />
 
-        <div className="relative mx-auto block w-full max-w-[1560px] overflow-hidden px-4 sm:px-8">
-          <img
-            src={asset('Banner.webp')}
-            alt="Analytics JR"
-            width={3000}
-            height={1306}
-            decoding="async"
-            loading="eager"
-            className="block h-auto w-full"
-          />
-          <motion.div
-            aria-hidden
-            initial={{ x: '-130%', opacity: 0 }}
-            whileInView={{ x: '130%', opacity: [0, 0.8, 0] }}
-            viewport={viewportOnce}
-            transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.6 }}
-            className="pointer-events-none absolute inset-y-4 left-4 right-4 sm:inset-y-6 sm:left-6 sm:right-6"
-            style={{
-              background:
-                'linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%)',
-              mixBlendMode: 'overlay',
-            }}
-          />
+        <div className="relative mx-auto block w-full max-w-[1200px] px-4 sm:px-8">
+          <PipelineAnimation />
         </div>
       </motion.div>
     </section>

@@ -108,25 +108,28 @@ export function VisionSection() {
               <FuturePulse />
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: -4 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewportOnce}
-                transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute -left-6 -top-6 hidden rounded-2xl bg-black px-4 py-3 text-white shadow-[0_18px_36px_-12px_rgba(0,0,0,0.5)] sm:block"
+                transition={{ duration: 0.8, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="relative mt-5 grid grid-cols-2 overflow-hidden rounded-2xl bg-black text-white shadow-[0_24px_48px_-18px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
               >
-                <div className="text-[10px] uppercase tracking-[0.24em] text-white/60">Impacto</div>
-                <div className="mt-1 font-heading text-2xl font-bold">+340%</div>
-              </motion.div>
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(20,184,166,0.18),transparent_60%)]" />
+                <div className="pointer-events-none absolute left-1/2 top-4 bottom-4 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/15 to-transparent" />
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 4 }}
-                viewport={viewportOnce}
-                transition={{ duration: 0.8, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute -bottom-6 -right-4 hidden rounded-2xl bg-white px-4 py-3 text-black shadow-[0_18px_36px_-12px_rgba(0,0,0,0.25)] ring-1 ring-black/5 sm:block"
-              >
-                <div className="text-[10px] uppercase tracking-[0.24em] text-black/50">Tempo médio</div>
-                <div className="mt-1 font-heading text-2xl font-bold">6 semanas</div>
+                <div className="relative flex flex-col items-start gap-1 px-5 py-4 sm:px-7 sm:py-5">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">Impacto</span>
+                  <span className="font-heading text-2xl font-bold leading-none sm:text-[1.65rem]">
+                    <span className="bg-gradient-to-r from-white to-[#5EEAD4] bg-clip-text text-transparent">+340%</span>
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">receita destravada</span>
+                </div>
+
+                <div className="relative flex flex-col items-start gap-1 px-5 py-4 sm:px-7 sm:py-5">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">Tempo médio</span>
+                  <span className="font-heading text-2xl font-bold leading-none sm:text-[1.65rem]">6 semanas</span>
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">do go-live ao insight</span>
+                </div>
               </motion.div>
             </motion.div>
           </div>

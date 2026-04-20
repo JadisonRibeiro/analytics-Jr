@@ -132,9 +132,9 @@ export function FuturePulse() {
               <stop offset="100%" stopColor="#14B8A6" stopOpacity="0" />
             </linearGradient>
             <linearGradient id="fpLine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#0A0A0A" />
-              <stop offset="70%" stopColor="#0A0A0A" />
-              <stop offset="100%" stopColor="#0F766E" />
+              <stop offset="0%" stopColor="#FFFFFF" />
+              <stop offset="70%" stopColor="#FFFFFF" />
+              <stop offset="100%" stopColor="#5EEAD4" />
             </linearGradient>
             <linearGradient id="fpConf" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.18" />
@@ -186,7 +186,7 @@ export function FuturePulse() {
               x2={NOW_X}
               y1={14}
               y2={BASE_Y}
-              stroke="#0F766E"
+              stroke="#5EEAD4"
               strokeWidth={1.2}
               strokeDasharray="3 3"
             />
@@ -288,7 +288,7 @@ export function FuturePulse() {
             y={BASE_Y + 18}
             textAnchor="middle"
             className="fp-axis-label"
-            style={{ fill: '#0F766E' }}
+            style={{ fill: '#5EEAD4' }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={viewportOnce}

@@ -206,9 +206,11 @@ export function FinalCtaSection() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={viewportOnce}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-              className="relative rounded-3xl border border-black/[0.06] bg-white/80 p-6 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.25)] backdrop-blur sm:p-10"
+              className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0A0A0A] via-[#111111] to-[#1A1A1A] p-6 shadow-[0_40px_90px_-20px_rgba(0,0,0,0.55)] sm:p-10"
             >
-              <div className="pointer-events-none absolute -top-3 left-6 rounded-full bg-black px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-white shadow-lg">
+              <div className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.22),transparent_65%)]" />
+              <div className="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.05),transparent_65%)]" />
+              <div className="pointer-events-none absolute -top-3 left-6 rounded-full bg-[#14B8A6] px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-black shadow-[0_8px_24px_-6px_rgba(20,184,166,0.55)]">
                 Formulário rápido
               </div>
 
@@ -223,18 +225,18 @@ export function FinalCtaSection() {
                     initial={{ scale: 0, rotate: -30 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ type: 'spring', stiffness: 180, damping: 14, delay: 0.15 }}
-                    className="flex h-16 w-16 items-center justify-center rounded-full bg-black text-white shadow-[0_20px_40px_-12px_rgba(0,0,0,0.4)]"
+                    className="flex h-16 w-16 items-center justify-center rounded-full bg-[#14B8A6] text-black shadow-[0_20px_40px_-12px_rgba(20,184,166,0.55)]"
                   >
                     <CheckCircle2 size={28} />
                   </motion.div>
-                  <h3 className="mt-6 font-heading text-2xl font-semibold text-black">Mensagem recebida.</h3>
-                  <p className="mt-2 max-w-[360px] text-black/65">
+                  <h3 className="mt-6 font-heading text-2xl font-semibold text-white">Mensagem recebida.</h3>
+                  <p className="mt-2 max-w-[360px] text-white/70">
                     Obrigado. Nosso time retorna em até 24 horas úteis com uma leitura do seu cenário.
                   </p>
                   <button
                     type="button"
                     onClick={() => setSent(false)}
-                    className="mt-6 text-sm font-medium text-black underline-offset-4 hover:underline"
+                    className="mt-6 text-sm font-medium text-white underline-offset-4 hover:underline"
                   >
                     Enviar outra mensagem
                   </button>
@@ -320,15 +322,15 @@ export function FinalCtaSection() {
                       type="submit"
                       disabled={isSubmitting}
                       data-magnetic
-                      className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-4 text-sm font-medium text-white transition-all hover:gap-3 hover:bg-black/85 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.45)] disabled:opacity-60"
+                      className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#14B8A6] px-6 py-4 text-sm font-semibold text-black transition-all hover:gap-3 hover:bg-[#2DD4BF] hover:shadow-[0_20px_40px_-12px_rgba(20,184,166,0.55)] disabled:opacity-60"
                     >
                       {isSubmitting ? 'Enviando…' : 'Enviar mensagem'}
                       <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
                     </button>
                     {submitError && (
-                      <p className="mt-3 text-xs text-[#dc2626]">{submitError}</p>
+                      <p className="mt-3 text-xs text-[#F87171]">{submitError}</p>
                     )}
-                    <p className="mt-3 text-xs text-black/50">
+                    <p className="mt-3 text-xs text-white/55">
                       Ao enviar, você concorda com nossa política de privacidade.
                     </p>
                   </div>
@@ -359,9 +361,9 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[11px] uppercase tracking-[0.28em] text-black/55">{label}</span>
+      <span className="mb-2 block text-[11px] uppercase tracking-[0.28em] text-white/65">{label}</span>
       {children}
-      {error && <span className="mt-1 block text-xs text-[#dc2626]">{error}</span>}
+      {error && <span className="mt-1 block text-xs text-[#F87171]">{error}</span>}
     </label>
   );
 }

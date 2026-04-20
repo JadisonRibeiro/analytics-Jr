@@ -11,7 +11,6 @@ import { VisionSection } from './sections/VisionSection';
 import { DashboardsSection } from './sections/DashboardsSection';
 import { DataMarqueeSection } from './sections/DataMarqueeSection';
 import { BannerSection } from './sections/BannerSection';
-import { PurposeSection } from './sections/PurposeSection';
 import { HowItWorksSection } from './sections/HowItWorksSection';
 import { TestimonialsSection } from './sections/TestimonialsSection';
 import { PricingSection } from './sections/PricingSection';
@@ -74,8 +73,6 @@ export default function App() {
           <VisionSection />
           <DashboardsSection />
           <DataMarqueeSection wordsA={TECH_WORDS_A} wordsB={TECH_WORDS_B} />
-          <SoftDivider label="Propósito" />
-          <PurposeSection />
           <SoftDivider label="Processo" />
           <HowItWorksSection />
           <SoftDivider label="Clientes" />

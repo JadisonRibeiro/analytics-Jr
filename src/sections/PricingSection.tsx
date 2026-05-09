@@ -1,61 +1,86 @@
 import { motion } from 'framer-motion';
-import {
-  ArrowRight,
-  LayoutDashboard,
-  Database,
-  RefreshCw,
-  ShieldCheck,
-  GraduationCap,
-  Headphones,
-  Sparkles,
-  Users,
-} from 'lucide-react';
-import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
+import { ArrowRight } from 'lucide-react';
+import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 
-const benefits = [
-  {
-    icon: LayoutDashboard,
-    title: 'Dashboards sob medida',
-    desc: 'Painéis em Power BI desenhados para as decisões do seu negócio.',
-  },
-  {
-    icon: Database,
-    title: 'Integração das fontes',
-    desc: 'ERP, CRM, planilhas e APIs conectados em uma única base confiável.',
-  },
-  {
-    icon: RefreshCw,
-    title: 'Atualização automática',
-    desc: 'Dados sempre frescos, sem retrabalho manual do seu time.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Governança e segurança',
-    desc: 'RLS, versionamento e controle de acesso em todos os projetos.',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Treinamento do time',
-    desc: 'Capacitamos seus usuários para extrair valor real dos painéis.',
-  },
-  {
-    icon: Headphones,
-    title: 'Suporte contínuo',
-    desc: 'Evolução e monitoria após a entrega — não sumimos depois do go-live.',
-  },
-  {
-    icon: Users,
-    title: 'Squad próximo',
-    desc: 'Comunicação direta com quem constrói, sem camadas intermediárias.',
-  },
-  {
-    icon: Sparkles,
-    title: 'Consultoria estratégica',
-    desc: 'Orientação de especialistas para priorizar o que gera mais impacto.',
-  },
+type Connector = {
+  name: string;
+  category: string;
+  logo: string;
+};
+
+const connectors: Connector[] = [
+  { name: 'SAP', category: 'ERP corporativo', logo: '/logos/sap.svg' },
+  { name: 'SAP HANA', category: 'Banco em memória', logo: '/logos/sap.svg' },
+  { name: 'Oracle', category: 'Banco relacional', logo: '/logos/oracle.svg' },
+  { name: 'TOTVS Protheus', category: 'ERP nacional', logo: '/logos/totvs.svg' },
+  { name: 'SQL Server', category: 'Microsoft', logo: '/logos/sqlserver.svg' },
+  { name: 'PostgreSQL', category: 'Open-source', logo: '/logos/postgresql.svg' },
+  { name: 'MySQL', category: 'Banco relacional', logo: '/logos/mysql.svg' },
+  { name: 'MongoDB', category: 'Banco NoSQL', logo: '/logos/mongodb.svg' },
+  { name: 'SharePoint', category: 'Microsoft 365', logo: '/logos/sharepoint.svg' },
+  { name: 'Google Sheets', category: 'Planilhas em nuvem', logo: '/logos/googlesheets.svg' },
+  { name: 'Excel', category: 'Planilhas locais', logo: '/logos/excel.svg' },
+  { name: 'REST APIs', category: 'Integrações sob demanda', logo: '/logos/api.svg' },
 ];
 
+function ConnectorPill({ c }: { c: Connector }) {
+  return (
+    <div className="mx-3 inline-flex shrink-0 items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 backdrop-blur transition-colors hover:border-white/25 hover:bg-white/[0.07]">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
+        <img
+          src={c.logo}
+          alt={`Logotipo ${c.name}`}
+          loading="lazy"
+          className="h-6 w-6 object-contain"
+        />
+      </span>
+      <span className="flex flex-col leading-tight">
+        <span className="font-heading text-sm font-semibold text-white">{c.name}</span>
+        <span className="text-[11px] uppercase tracking-wider text-gray-5">{c.category}</span>
+      </span>
+    </div>
+  );
+}
+
+function MarqueeRow({
+  items,
+  reverse = false,
+  duration = 40,
+}: {
+  items: Connector[];
+  reverse?: boolean;
+  duration?: number;
+}) {
+  const animateX = reverse ? ['-50%', '0%'] : ['0%', '-50%'];
+
+  return (
+    <div
+      className="relative overflow-hidden"
+      style={{
+        WebkitMaskImage:
+          'linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)',
+        maskImage:
+          'linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)',
+      }}
+    >
+      <motion.div
+        className="flex w-max"
+        animate={{ x: animateX }}
+        transition={{ duration, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+      >
+        {[...items, ...items].map((c, i) => (
+          <ConnectorPill key={`${c.name}-${i}`} c={c} />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 export function PricingSection() {
+  const half = Math.ceil(connectors.length / 2);
+  const rowA = connectors.slice(0, half);
+  const rowB = connectors.slice(half);
+
   return (
     <section id="investimento" className="relative overflow-hidden bg-brand-black py-28">
       <div className="perspective-grid opacity-30" />
@@ -67,51 +92,34 @@ export function PricingSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={stagger}
-          className="mb-16 text-center"
+          className="mb-14 text-center"
         >
           <motion.span variants={fadeUp} className="eyebrow justify-center text-gray-5">
-            Planos
+            Conexões
           </motion.span>
           <motion.h2
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[760px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
+            className="mx-auto mt-4 max-w-[820px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
           >
-            Temos planos sob medida
+            Conectamos seus dados
             <br className="hidden sm:block" />
-            para cada estágio da sua operação.
+            onde quer que eles estejam.
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="mx-auto mt-6 max-w-[620px] text-lg text-gray-5"
+            className="mx-auto mt-6 max-w-[640px] text-lg text-gray-5"
           >
-            Cada proposta é apresentada em uma reunião estratégica, onde entendemos o contexto do seu negócio e desenhamos o escopo ideal. Estes são os benefícios que acompanham nossos planos.
+            ERPs, bancos relacionais, planilhas e APIs — integramos as principais fontes do mercado em uma única base confiável, pronta para virar dashboard.
           </motion.p>
         </motion.div>
+      </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={staggerFast}
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {benefits.map((b) => (
-            <motion.div
-              key={b.title}
-              variants={cardReveal}
-              whileHover={{ y: -4, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)]"
-            >
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/[0.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] ring-1 ring-black/[0.06]">
-                <b.icon size={20} className="text-black" />
-              </div>
-              <h3 className="relative mt-6 font-heading text-lg font-semibold text-black">{b.title}</h3>
-              <p className="relative mt-3 text-sm leading-relaxed text-black/60">{b.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+      <div className="relative flex flex-col gap-5">
+        <MarqueeRow items={rowA} duration={40} />
+        <MarqueeRow items={rowB} duration={50} reverse />
+      </div>
 
+      <div className="relative mx-auto max-w-[1280px] px-6">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -119,15 +127,15 @@ export function PricingSection() {
           variants={fadeUp}
           className="mt-16 flex flex-col items-center gap-4 text-center"
         >
-          <p className="max-w-[520px] text-gray-5">
-            Vamos conversar sobre qual plano faz sentido para o seu momento.
+          <p className="max-w-[560px] text-gray-5">
+            Não vê sua fonte aqui? Conectamos praticamente qualquer sistema com API ou banco acessível.
           </p>
           <a
             href="#cta"
             data-magnetic
             className="btn btn-primary"
           >
-            Agendar reunião
+            Conversar sobre integração
             <ArrowRight size={14} />
           </a>
         </motion.div>

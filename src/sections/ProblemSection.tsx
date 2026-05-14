@@ -1,27 +1,72 @@
-import { motion } from 'framer-motion';
-import { Brain, RefreshCw, Network } from 'lucide-react';
-import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
+import { motion, type Variants } from 'framer-motion';
+import { Brain, RefreshCw, Network, ArrowUpRight } from 'lucide-react';
+import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { asset } from '@/utils/asset';
+import { useIsMobile } from '@/utils/useIsMobile';
 
 const pains = [
   {
     icon: Brain,
+    number: '01',
     title: 'Decisões no achismo',
     desc: 'Você toma decisões baseado em intuição, não em evidências. Cada escolha vira um risco que poderia ser evitado.',
+    impact: 'Risco invisível',
   },
   {
     icon: RefreshCw,
+    number: '02',
     title: 'Relatórios desatualizados',
     desc: 'Planilhas que levam horas para montar e chegam tarde demais. Quando os números ficam prontos, o momento já passou.',
+    impact: 'Tempo perdido',
   },
   {
     icon: Network,
+    number: '03',
     title: 'Dados desconectados',
     desc: 'CRM, ERP e marketing falam línguas diferentes. A visão única do negócio simplesmente não existe.',
+    impact: 'Visão fragmentada',
   },
 ];
 
+const SMOOTH = [0.22, 1, 0.36, 1] as const;
+
+const stackReveal: Variants = {
+  hidden: { opacity: 0, y: -60, scale: 0.88, rotateX: -10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: { duration: 0.8, ease: SMOOTH },
+  },
+};
+
+const minimalReveal: Variants = {
+  hidden: { opacity: 0, y: 24, scale: 1, rotateX: 0 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: { duration: 0.65, ease: SMOOTH },
+  },
+};
+
+const stackStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.16, delayChildren: 0.08 } },
+};
+
+const minimalStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+};
+
 export function ProblemSection() {
+  const isMobile = useIsMobile();
+  const cardVariants = isMobile ? stackReveal : minimalReveal;
+  const containerVariants = isMobile ? stackStagger : minimalStagger;
+
   return (
     <section id="problema" className="relative overflow-hidden bg-brand-black py-28 lg:min-h-[820px]">
       <div className="perspective-grid opacity-40" />
@@ -64,24 +109,62 @@ export function ProblemSection() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          variants={staggerFast}
-          className="grid gap-6 [perspective:1200px] md:grid-cols-3 lg:grid-cols-1 lg:pl-[520px] xl:pl-[580px]"
+          variants={containerVariants}
+          className="grid gap-6 [perspective:1400px] md:grid-cols-3 lg:grid-cols-1 lg:pl-[520px] xl:pl-[580px]"
         >
-          {pains.map((p) => (
-            <motion.div
+          {pains.map((p, idx) => (
+            <motion.article
               key={p.title}
-              variants={cardReveal}
-              whileHover={{ y: -6, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-8 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)]"
+              variants={cardVariants}
+              whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
+              style={{ zIndex: pains.length - idx, transformStyle: 'preserve-3d' }}
+              className="group relative -mt-10 overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 first:mt-0 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)] sm:p-8 md:mt-0"
             >
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-black/[0.03] blur-2xl transition-all duration-700 group-hover:bg-black/[0.06]" />
-              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] ring-1 ring-black/[0.06]">
-                <p.icon size={22} className="text-black" />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -right-3 -top-6 select-none font-heading text-[7rem] font-black leading-none text-black/[0.04] transition-all duration-700 group-hover:text-black/[0.08] sm:text-[8rem]"
+              >
+                {p.number}
+              </span>
+
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-gradient-to-r from-black via-black/70 to-transparent transition-transform duration-700 group-hover:scale-x-100"
+              />
+
+              <div className="relative flex items-start justify-between gap-4">
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-xl bg-black text-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] ring-1 ring-black/10 transition-transform duration-500 group-hover:rotate-[-4deg] group-hover:scale-105">
+                  <p.icon size={24} strokeWidth={2.2} />
+                  <span
+                    aria-hidden
+                    className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-sm bg-gradient-to-br from-neon to-neon-2 ring-1 ring-black/40"
+                  />
+                </div>
+
+                <span className="mt-1 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3 py-1 font-heading text-[10px] font-semibold uppercase tracking-[0.18em] text-black/60">
+                  <span aria-hidden className="h-2 w-[2px] rounded-full bg-gradient-to-b from-black to-black/40" />
+                  {p.impact}
+                </span>
               </div>
-              <h3 className="relative mt-6 font-heading text-xl font-semibold text-black">{p.title}</h3>
+
+              <h3 className="relative mt-6 font-heading text-xl font-semibold text-black sm:text-[1.35rem]">
+                {p.title}
+              </h3>
               <p className="relative mt-3 leading-relaxed text-black/60">{p.desc}</p>
-              <div className="relative mt-8 h-[1px] w-full bg-gradient-to-r from-black/15 via-black/5 to-transparent" />
-            </motion.div>
+
+              <div className="relative mt-7 flex items-center justify-between">
+                <div className="relative h-[2px] w-full overflow-hidden rounded-full bg-black/5">
+                  <span
+                    aria-hidden
+                    className="absolute inset-y-0 left-0 w-1/3 origin-left scale-x-0 bg-gradient-to-r from-black via-black/70 to-transparent transition-transform duration-[900ms] ease-out group-hover:scale-x-[3]"
+                  />
+                </div>
+                <ArrowUpRight
+                  size={18}
+                  className="ml-4 shrink-0 -translate-x-1 text-black/40 transition-all duration-500 group-hover:translate-x-0 group-hover:text-black"
+                />
+              </div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

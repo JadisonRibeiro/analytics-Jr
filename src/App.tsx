@@ -3,6 +3,7 @@ import { Header } from './components/layout/Header';
 import { WhatsAppButton } from './components/layout/WhatsAppButton';
 import { CustomCursor } from './components/CustomCursor';
 import { LoadingScreen } from './components/LoadingScreen';
+import { ScrollCTAPopup } from './components/ScrollCTAPopup';
 import { SoftDivider } from './components/SoftDivider';
 import { HeroSection } from './sections/HeroSection';
 import { ProblemSection } from './sections/ProblemSection';
@@ -84,6 +85,7 @@ export default function App() {
         </main>
         <Footer />
         <WhatsAppButton />
+        <ScrollCTAPopup />
       </div>
     </>
   );

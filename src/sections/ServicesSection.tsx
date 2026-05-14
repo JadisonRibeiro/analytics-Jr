@@ -1,18 +1,92 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { LayoutDashboard, Database, GitBranch, Zap, Shield, GraduationCap, ArrowUpRight } from 'lucide-react';
-import { cardReveal, fadeUp, stagger, staggerFast, viewportOnce } from '@/utils/animations';
+import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { asset } from '@/utils/asset';
+import { useIsMobile } from '@/utils/useIsMobile';
 
 const services = [
-  { icon: LayoutDashboard, title: 'Dashboards interativos', desc: 'Painéis visuais e acionáveis que respondem às perguntas certas em tempo real.' },
-  { icon: Database, title: 'Modelagem de dados', desc: 'Estruturas otimizadas em estrela, com relacionamentos robustos e performance alta.' },
-  { icon: GitBranch, title: 'ETL & integrações', desc: 'Pipelines que unificam ERP, CRM, planilhas e APIs em uma fonte única da verdade.' },
-  { icon: Zap, title: 'Automação de relatórios', desc: 'Entregas automáticas para stakeholders no formato e horário certos, sem esforço manual.' },
-  { icon: Shield, title: 'Governança & segurança', desc: 'RLS, versionamento e controle granular para proteger o ativo mais estratégico: seus dados.' },
-  { icon: GraduationCap, title: 'Treinamento & consultoria', desc: 'Capacitamos seu time para operar, evoluir e extrair o máximo da sua stack de BI.' },
+  {
+    icon: LayoutDashboard,
+    number: '01',
+    title: 'Dashboards interativos',
+    desc: 'Painéis visuais e acionáveis que respondem às perguntas certas em tempo real.',
+    tag: 'Visualização',
+  },
+  {
+    icon: Database,
+    number: '02',
+    title: 'Modelagem de dados',
+    desc: 'Estruturas otimizadas em estrela, com relacionamentos robustos e performance alta.',
+    tag: 'Arquitetura',
+  },
+  {
+    icon: GitBranch,
+    number: '03',
+    title: 'ETL & integrações',
+    desc: 'Pipelines que unificam ERP, CRM, planilhas e APIs em uma fonte única da verdade.',
+    tag: 'Integração',
+  },
+  {
+    icon: Zap,
+    number: '04',
+    title: 'Automação de relatórios',
+    desc: 'Entregas automáticas para stakeholders no formato e horário certos, sem esforço manual.',
+    tag: 'Operação',
+  },
+  {
+    icon: Shield,
+    number: '05',
+    title: 'Governança & segurança',
+    desc: 'RLS, versionamento e controle granular para proteger o ativo mais estratégico: seus dados.',
+    tag: 'Segurança',
+  },
+  {
+    icon: GraduationCap,
+    number: '06',
+    title: 'Treinamento & consultoria',
+    desc: 'Capacitamos seu time para operar, evoluir e extrair o máximo da sua stack de BI.',
+    tag: 'Capacitação',
+  },
 ];
 
+const SMOOTH = [0.22, 1, 0.36, 1] as const;
+
+const stackReveal: Variants = {
+  hidden: { opacity: 0, y: -60, scale: 0.88, rotateX: -10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: { duration: 0.8, ease: SMOOTH },
+  },
+};
+
+const minimalReveal: Variants = {
+  hidden: { opacity: 0, y: 24, scale: 1, rotateX: 0 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateX: 0,
+    transition: { duration: 0.65, ease: SMOOTH },
+  },
+};
+
+const stackStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+};
+
+const minimalStagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.04 } },
+};
+
 export function ServicesSection() {
+  const isMobile = useIsMobile();
+  const cardVariants = isMobile ? stackReveal : minimalReveal;
+  const containerVariants = isMobile ? stackStagger : minimalStagger;
   return (
     <section id="servicos" className="relative overflow-hidden bg-brand-black py-28 lg:min-h-[820px]">
       <div className="perspective-grid opacity-30" />
@@ -23,7 +97,7 @@ export function ServicesSection() {
         initial={{ opacity: 0, x: 40, scale: 0.9 }}
         whileInView={{ opacity: 1, x: 0, scale: 1 }}
         viewport={viewportOnce}
-        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1.3, ease: SMOOTH }}
         className="pointer-events-none absolute -right-[6%] top-1/2 hidden h-[620px] w-auto max-w-[36vw] -translate-y-1/2 object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] lg:block"
       />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(192,192,192,0.08),transparent_55%)]" />
@@ -56,26 +130,62 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          variants={staggerFast}
-          className="relative z-10 grid gap-5 [perspective:1200px] md:grid-cols-2 lg:grid-cols-2 lg:pr-[400px] xl:pr-[440px]"
+          variants={containerVariants}
+          className="relative z-10 grid gap-5 [perspective:1400px] md:grid-cols-2 lg:pr-[400px] xl:pr-[440px]"
         >
-          {services.map((s) => (
-            <motion.div
+          {services.map((s, idx) => (
+            <motion.article
               key={s.title}
-              variants={cardReveal}
-              whileHover={{ y: -6, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
-              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.5)] transition-all duration-500 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)]"
+              variants={cardVariants}
+              whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
+              style={{ zIndex: services.length - idx, transformStyle: 'preserve-3d' }}
+              className="group relative -mt-10 overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 first:mt-0 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)] sm:p-8 md:mt-0"
             >
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/[0.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex items-start justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-black/[0.04] text-black ring-1 ring-black/[0.06]">
-                  <s.icon size={20} />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -right-3 -top-6 select-none font-heading text-[7rem] font-black leading-none text-black/[0.04] transition-all duration-700 group-hover:text-black/[0.08] sm:text-[8rem]"
+              >
+                {s.number}
+              </span>
+
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-gradient-to-r from-black via-black/70 to-transparent transition-transform duration-700 group-hover:scale-x-100"
+              />
+
+              <div className="relative flex items-start justify-between gap-4">
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-xl bg-black text-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] ring-1 ring-black/10 transition-transform duration-500 group-hover:rotate-[-4deg] group-hover:scale-105">
+                  <s.icon size={24} strokeWidth={2.2} />
+                  <span
+                    aria-hidden
+                    className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-sm bg-gradient-to-br from-neon to-neon-2 ring-1 ring-black/40"
+                  />
                 </div>
-                <ArrowUpRight size={18} className="translate-y-1 text-black/40 transition-all group-hover:-translate-y-0 group-hover:text-black" />
+
+                <span className="mt-1 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3 py-1 font-heading text-[10px] font-semibold uppercase tracking-[0.18em] text-black/60">
+                  <span aria-hidden className="h-2 w-[2px] rounded-full bg-gradient-to-b from-black to-black/40" />
+                  {s.tag}
+                </span>
               </div>
-              <h3 className="relative mt-6 font-heading text-lg font-semibold text-black">{s.title}</h3>
-              <p className="relative mt-3 text-black/60">{s.desc}</p>
-            </motion.div>
+
+              <h3 className="relative mt-6 font-heading text-xl font-semibold text-black sm:text-[1.35rem]">
+                {s.title}
+              </h3>
+              <p className="relative mt-3 leading-relaxed text-black/60">{s.desc}</p>
+
+              <div className="relative mt-7 flex items-center justify-between">
+                <div className="relative h-[2px] w-full overflow-hidden rounded-full bg-black/5">
+                  <span
+                    aria-hidden
+                    className="absolute inset-y-0 left-0 w-1/3 origin-left scale-x-0 bg-gradient-to-r from-black via-black/70 to-transparent transition-transform duration-[900ms] ease-out group-hover:scale-x-[3]"
+                  />
+                </div>
+                <ArrowUpRight
+                  size={18}
+                  className="ml-4 shrink-0 -translate-x-1 text-black/40 transition-all duration-500 group-hover:translate-x-0 group-hover:text-black"
+                />
+              </div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

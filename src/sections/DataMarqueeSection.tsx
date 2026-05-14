@@ -45,7 +45,7 @@ function MarqueeRow({ words, baseVelocity, tilt, active }: MarqueeRowProps) {
 
   return (
     <div
-      className="pointer-events-none relative w-[140%] overflow-hidden bg-white py-0.5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] sm:py-1"
+      className="pointer-events-none relative w-[220%] max-w-none overflow-hidden bg-white py-0.5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] sm:py-1"
       style={{ transform: `rotate(${tilt}deg)`, transformOrigin: '50% 50%' }}
     >
       <motion.div
@@ -98,12 +98,12 @@ export function DataMarqueeSection({ wordsA, wordsB, speed = 3 }: DataMarqueeSec
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(192,192,192,0.12),transparent_60%)]" />
 
       <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-center">
-        <div className="w-full -translate-x-[10%]">
+        <div className="flex w-full justify-center">
           <MarqueeRow words={wordsA} baseVelocity={-speed} tilt={-12} active={active} />
         </div>
       </div>
       <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-center">
-        <div className="w-full -translate-x-[10%]">
+        <div className="flex w-full justify-center">
           <MarqueeRow words={wordsB} baseVelocity={speed} tilt={12} active={active} />
         </div>
       </div>

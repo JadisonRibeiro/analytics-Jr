@@ -110,7 +110,7 @@ export function ProblemSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={containerVariants}
-          className="grid gap-6 [perspective:1400px] md:grid-cols-3 lg:grid-cols-1 lg:pl-[520px] xl:pl-[580px]"
+          className="grid gap-7 sm:gap-8 [perspective:1400px] md:grid-cols-3 md:gap-6 lg:grid-cols-1 lg:gap-0 lg:pl-[520px] xl:pl-[580px]"
         >
           {pains.map((p, idx) => (
             <motion.article
@@ -118,11 +118,11 @@ export function ProblemSection() {
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
               style={{ zIndex: pains.length - idx, transformStyle: 'preserve-3d' }}
-              className="group relative -mt-10 overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 first:mt-0 hover:border-black/10 hover:shadow-[0_32px_64px_-24px_rgba(0,0,0,0.6)] sm:p-8 md:mt-0"
+              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 hover:border-black/15 hover:shadow-[0_36px_72px_-24px_rgba(0,0,0,0.7)] sm:p-8 lg:-mt-10 lg:first:mt-0"
             >
               <span
                 aria-hidden
-                className="pointer-events-none absolute -right-3 -top-6 select-none font-heading text-[7rem] font-black leading-none text-black/[0.04] transition-all duration-700 group-hover:text-black/[0.08] sm:text-[8rem]"
+                className="pointer-events-none absolute right-4 top-3 select-none font-heading text-[4.5rem] font-black leading-none text-black/[0.06] transition-all duration-700 group-hover:text-black/[0.12] sm:right-5 sm:top-4 sm:text-[5.5rem]"
               >
                 {p.number}
               </span>
@@ -130,6 +130,12 @@ export function ProblemSection() {
               <span
                 aria-hidden
                 className="pointer-events-none absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-gradient-to-r from-black via-black/70 to-transparent transition-transform duration-700 group-hover:scale-x-100"
+              />
+
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                style={{ background: 'radial-gradient(600px circle at 50% 0%, rgba(0,0,0,0.06), transparent 40%)' }}
               />
 
               <div className="relative flex items-start justify-between gap-4">
@@ -141,7 +147,7 @@ export function ProblemSection() {
                   />
                 </div>
 
-                <span className="mt-1 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3 py-1 font-heading text-[10px] font-semibold uppercase tracking-[0.18em] text-black/60">
+                <span className="mt-1 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1 font-heading text-[10px] font-semibold uppercase tracking-[0.18em] text-black/60 backdrop-blur-sm">
                   <span aria-hidden className="h-2 w-[2px] rounded-full bg-gradient-to-b from-black to-black/40" />
                   {p.impact}
                 </span>

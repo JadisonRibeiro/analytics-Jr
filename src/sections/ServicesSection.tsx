@@ -2,7 +2,6 @@ import { motion, type Variants } from 'framer-motion';
 import { LayoutDashboard, Database, GitBranch, Zap, Shield, GraduationCap, ArrowUpRight } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { asset } from '@/utils/asset';
-import { useIsMobile } from '@/utils/useIsMobile';
 
 const services = [
   {
@@ -51,42 +50,23 @@ const services = [
 
 const SMOOTH = [0.22, 1, 0.36, 1] as const;
 
-const stackReveal: Variants = {
-  hidden: { opacity: 0, y: -60, scale: 0.88, rotateX: -10 },
+const cardReveal: Variants = {
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    rotateX: 0,
-    transition: { duration: 0.8, ease: SMOOTH },
+    transition: { duration: 0.6, ease: SMOOTH },
   },
 };
 
-const minimalReveal: Variants = {
-  hidden: { opacity: 0, y: 24, scale: 1, rotateX: 0 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    rotateX: 0,
-    transition: { duration: 0.65, ease: SMOOTH },
-  },
-};
-
-const stackStagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
-};
-
-const minimalStagger: Variants = {
+const cardStagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.09, delayChildren: 0.04 } },
 };
 
 export function ServicesSection() {
-  const isMobile = useIsMobile();
-  const cardVariants = isMobile ? stackReveal : minimalReveal;
-  const containerVariants = isMobile ? stackStagger : minimalStagger;
+  const cardVariants = cardReveal;
+  const containerVariants = cardStagger;
   return (
     <section id="servicos" className="relative overflow-hidden bg-brand-black py-28 lg:min-h-[820px]">
       <div className="perspective-grid opacity-30" />
@@ -131,14 +111,13 @@ export function ServicesSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={containerVariants}
-          className="relative z-10 grid gap-7 sm:gap-8 [perspective:1400px] md:grid-cols-2 md:gap-5 lg:pr-[400px] xl:pr-[440px]"
+          className="relative z-10 grid gap-7 sm:gap-8 md:grid-cols-2 md:gap-5 lg:pr-[400px] xl:pr-[440px]"
         >
-          {services.map((s, idx) => (
+          {services.map((s) => (
             <motion.article
               key={s.title}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
-              style={{ zIndex: services.length - idx, transformStyle: 'preserve-3d' }}
               className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 hover:border-black/15 hover:shadow-[0_36px_72px_-24px_rgba(0,0,0,0.7)] sm:p-8"
             >
               <span

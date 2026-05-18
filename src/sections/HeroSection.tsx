@@ -57,24 +57,20 @@ export function HeroSection() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 backdrop-blur-md"
+            className="mt-8 inline-flex max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 backdrop-blur-md"
           >
             <span className="flex items-center gap-2">
-              <img src={asset('logos/microsoft.svg')} alt="" aria-hidden className="h-3.5 w-3.5" />
+              <img src={asset('logos/microsoft.svg')} alt="" aria-hidden className="h-3.5 w-3.5 shrink-0" />
               <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-white/85">
                 Microsoft
               </span>
             </span>
-            <span aria-hidden className="h-3 w-px bg-white/20" />
+            <span aria-hidden className="hidden h-3 w-px bg-white/20 sm:block" />
             <span className="flex items-center gap-2">
-              <img src={asset('logos/powerbi.svg')} alt="" aria-hidden className="h-4 w-4" />
+              <img src={asset('logos/powerbi.svg')} alt="" aria-hidden className="h-4 w-4 shrink-0" />
               <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-white/85">
                 Power BI
               </span>
-            </span>
-            <span aria-hidden className="h-3 w-px bg-white/20" />
-            <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-neon">
-              Especialistas
             </span>
           </motion.div>
 

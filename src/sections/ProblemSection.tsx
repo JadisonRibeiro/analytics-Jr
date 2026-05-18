@@ -2,7 +2,6 @@ import { motion, type Variants } from 'framer-motion';
 import { Brain, RefreshCw, Network, ArrowUpRight } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { asset } from '@/utils/asset';
-import { useIsMobile } from '@/utils/useIsMobile';
 
 const pains = [
   {
@@ -30,42 +29,23 @@ const pains = [
 
 const SMOOTH = [0.22, 1, 0.36, 1] as const;
 
-const stackReveal: Variants = {
-  hidden: { opacity: 0, y: -60, scale: 0.88, rotateX: -10 },
+const cardReveal: Variants = {
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    rotateX: 0,
-    transition: { duration: 0.8, ease: SMOOTH },
+    transition: { duration: 0.6, ease: SMOOTH },
   },
 };
 
-const minimalReveal: Variants = {
-  hidden: { opacity: 0, y: 24, scale: 1, rotateX: 0 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    rotateX: 0,
-    transition: { duration: 0.65, ease: SMOOTH },
-  },
-};
-
-const stackStagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.16, delayChildren: 0.08 } },
-};
-
-const minimalStagger: Variants = {
+const cardStagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 };
 
 export function ProblemSection() {
-  const isMobile = useIsMobile();
-  const cardVariants = isMobile ? stackReveal : minimalReveal;
-  const containerVariants = isMobile ? stackStagger : minimalStagger;
+  const cardVariants = cardReveal;
+  const containerVariants = cardStagger;
 
   return (
     <section id="problema" className="relative overflow-hidden bg-brand-black py-28 lg:min-h-[820px]">
@@ -110,14 +90,13 @@ export function ProblemSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={containerVariants}
-          className="grid gap-7 sm:gap-8 [perspective:1400px] md:grid-cols-3 md:gap-6 lg:grid-cols-1 lg:gap-6 lg:pl-[520px] xl:pl-[580px]"
+          className="grid gap-7 sm:gap-8 md:grid-cols-3 md:gap-6 lg:grid-cols-1 lg:gap-6 lg:pl-[520px] xl:pl-[580px]"
         >
-          {pains.map((p, idx) => (
+          {pains.map((p) => (
             <motion.article
               key={p.title}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
-              style={{ zIndex: pains.length - idx, transformStyle: 'preserve-3d' }}
               className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 hover:border-black/15 hover:shadow-[0_36px_72px_-24px_rgba(0,0,0,0.7)] sm:p-8"
             >
               <span

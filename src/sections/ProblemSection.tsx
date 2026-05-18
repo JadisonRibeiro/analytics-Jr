@@ -110,7 +110,7 @@ export function ProblemSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={containerVariants}
-          className="grid gap-7 sm:gap-8 [perspective:1400px] md:grid-cols-3 md:gap-6 lg:grid-cols-1 lg:gap-0 lg:pl-[520px] xl:pl-[580px]"
+          className="grid gap-7 sm:gap-8 [perspective:1400px] md:grid-cols-3 md:gap-6 lg:grid-cols-1 lg:gap-6 lg:pl-[520px] xl:pl-[580px]"
         >
           {pains.map((p, idx) => (
             <motion.article
@@ -118,7 +118,7 @@ export function ProblemSection() {
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
               style={{ zIndex: pains.length - idx, transformStyle: 'preserve-3d' }}
-              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 hover:border-black/15 hover:shadow-[0_36px_72px_-24px_rgba(0,0,0,0.7)] sm:p-8 lg:-mt-10 lg:first:mt-0"
+              className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 hover:border-black/15 hover:shadow-[0_36px_72px_-24px_rgba(0,0,0,0.7)] sm:p-8"
             >
               <span
                 aria-hidden

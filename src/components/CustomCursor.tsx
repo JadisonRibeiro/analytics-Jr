@@ -53,7 +53,7 @@ export function CustomCursor() {
         ref={dotRef}
         aria-hidden
         className="pointer-events-none fixed left-0 top-0 z-[9999] h-3 w-3 rounded-full bg-white"
-        style={{ mixBlendMode: 'difference' }}
+        style={{ mixBlendMode: 'difference', willChange: 'transform' }}
       />
       <div
         ref={ringRef}
@@ -65,6 +65,7 @@ export function CustomCursor() {
           marginLeft: hover ? -10 : 0,
           marginTop: hover ? -10 : 0,
           background: hover ? 'rgba(255,255,255,0.1)' : 'transparent',
+          willChange: 'transform',
         }}
       />
     </>

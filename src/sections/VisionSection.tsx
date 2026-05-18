@@ -1,31 +1,21 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { FuturePulse } from '@/components/FuturePulse';
 
 export function VisionSection() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-
-  const cardRadius = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [80, 40, 40, 80]);
-
   return (
-    <section ref={ref} className="relative bg-brand-black py-20 sm:py-28">
+    <section className="relative bg-brand-black py-20 sm:py-28">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-brand-black to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-brand-black to-transparent" />
 
       <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6">
         <motion.div
-          style={{ borderRadius: cardRadius }}
           initial={{ opacity: 0, y: 80, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={viewportOnce}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden bg-gradient-to-br from-white via-[#FAFAF8] to-[#F0F0EC] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/[0.04]"
+          className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-white via-[#FAFAF8] to-[#F0F0EC] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/[0.04]"
         >
           <div className="pointer-events-none absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.05),transparent_65%)]" />
           <div className="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.04),transparent_65%)]" />

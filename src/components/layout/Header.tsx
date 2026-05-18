@@ -14,7 +14,7 @@ const links = [
 ];
 
 export function Header() {
-  const scrolled = useScrollAnimation(20);
+  const scrolled = useScrollAnimation(80);
   const [open, setOpen] = useState(false);
 
   return (
@@ -23,9 +23,10 @@ export function Header() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6"
+      style={{ willChange: 'transform' }}
     >
       <div
-        className={`flex w-full max-w-[980px] items-center justify-between gap-6 rounded-full border px-3 py-2 backdrop-blur-xl transition-all duration-500 sm:px-4 ${
+        className={`flex w-full max-w-[980px] items-center justify-between gap-6 rounded-full border px-3 py-2 backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-500 sm:px-4 ${
           scrolled
             ? 'border-white/15 bg-brand-black/80 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.65)]'
             : 'border-white/10 bg-white/[0.04] shadow-[0_10px_28px_-14px_rgba(0,0,0,0.55)]'

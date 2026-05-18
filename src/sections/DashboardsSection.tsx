@@ -101,9 +101,32 @@ export function DashboardsSection() {
               que você pode explorar.
             </motion.h2>
           </div>
-          <motion.p variants={fadeUp} className="max-w-[460px] text-lg text-gray-5">
-            Cinco projetos entregues pela Analytics JR — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
-          </motion.p>
+          <div className="flex flex-col items-start gap-4 md:items-end">
+            <motion.p variants={fadeUp} className="max-w-[460px] text-lg text-gray-5">
+              Cinco projetos entregues pela Analytics JR — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
+            </motion.p>
+            <motion.div
+              variants={fadeUp}
+              className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2 backdrop-blur-sm"
+            >
+              <span className="font-heading text-[9px] font-semibold uppercase tracking-[0.28em] text-gray-5">
+                Powered by
+              </span>
+              <span aria-hidden className="h-3 w-px bg-white/15" />
+              <span className="flex items-center gap-1.5">
+                <img src={asset('logos/microsoft.svg')} alt="" aria-hidden className="h-3.5 w-3.5" />
+                <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.18em] text-white/85">
+                  Microsoft
+                </span>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <img src={asset('logos/powerbi.svg')} alt="" aria-hidden className="h-4 w-4" />
+                <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.18em] text-white/85">
+                  Power BI
+                </span>
+              </span>
+            </motion.div>
+          </div>
         </motion.div>
 
         <motion.div

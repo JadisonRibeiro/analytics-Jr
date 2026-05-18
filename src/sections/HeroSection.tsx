@@ -57,7 +57,30 @@ export function HeroSection() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 backdrop-blur-md"
+          >
+            <span className="flex items-center gap-2">
+              <img src={asset('logos/microsoft.svg')} alt="" aria-hidden className="h-3.5 w-3.5" />
+              <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-white/85">
+                Microsoft
+              </span>
+            </span>
+            <span aria-hidden className="h-3 w-px bg-white/20" />
+            <span className="flex items-center gap-2">
+              <img src={asset('logos/powerbi.svg')} alt="" aria-hidden className="h-4 w-4" />
+              <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-white/85">
+                Power BI
+              </span>
+            </span>
+            <span aria-hidden className="h-3 w-px bg-white/20" />
+            <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-neon">
+              Especialistas
+            </span>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="mt-8 flex flex-wrap items-center justify-center gap-4"
           >
             <a href="#cta">
               <Button icon={<ArrowRight size={16} />}>Começar projeto</Button>

@@ -1,4 +1,4 @@
-# Skills utilizadas — Analytics JR
+# Skills utilizadas — Analisa Jr
 
 Catálogo das tecnologias, bibliotecas e técnicas efetivamente aplicadas no site. Cada arquivo documenta: o que é, onde é usado no projeto e como foi aplicado.
 

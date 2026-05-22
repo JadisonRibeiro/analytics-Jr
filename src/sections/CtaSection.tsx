@@ -46,7 +46,7 @@ const schema = z
           const digits = v.replace(/\D/g, '');
           return digits.length >= 10 && digits.length <= 11;
         },
-        { message: 'Informe o telefone com DDD (ex: 91 99836-1022)' },
+        { message: 'Informe o telefone com DDD (ex: 99 99999-9999)' },
       ),
     pain: z.enum(painOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
     source: z.enum(sourceOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
@@ -61,7 +61,7 @@ const schema = z
 type FormValues = z.infer<typeof schema>;
 
 const FORM_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycby_TdhqXnoHZm_vFfZFIcwzqcUBA81HgByAIF3aa20gtrKT1xjSXX4dME4BKY2QWQV3qg/exec';
+  'https://script.google.com/macros/s/AKfycbwIAniCCDuijBs9qMPlU5R5U0XK7os9qUMpC6Kc5zfogSOdWRWkNo03upmNjJHiNlEBaw/exec';
 
 export function FinalCtaSection() {
   const [sent, setSent] = useState(false);
@@ -94,12 +94,19 @@ export function FinalCtaSection() {
       body.append('message', values.message);
       body.append('origin', 'site');
 
-      await fetch(FORM_ENDPOINT, { method: 'POST', body });
+      const res = await fetch(FORM_ENDPOINT, { method: 'POST', body });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.ok) {
+        const detail = json?.error ? ` (${json.error})` : '';
+        throw new Error(`Falha no envio${detail}`);
+      }
       setSent(true);
       reset();
-    } catch {
+    } catch (err) {
       setSubmitError(
-        'Não conseguimos enviar agora. Tente novamente ou fale pelo WhatsApp.',
+        err instanceof Error && err.message.startsWith('Falha no envio')
+          ? err.message + ' — tente novamente ou fale pelo WhatsApp.'
+          : 'Não conseguimos enviar agora. Tente novamente ou fale pelo WhatsApp.',
       );
     }
   };
@@ -259,7 +266,7 @@ export function FinalCtaSection() {
                       {...register('phone')}
                       inputMode="tel"
                       className={inputCls}
-                      placeholder="(91) 99836-1022"
+                      placeholder="(99) 99999-9999"
                     />
                   </Field>
                   <div className="sm:col-span-2">

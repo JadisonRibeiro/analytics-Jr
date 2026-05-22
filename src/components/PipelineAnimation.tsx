@@ -283,7 +283,7 @@ export function PipelineAnimation() {
                   <span />
                   <span />
                 </div>
-                <span className="do-title">Painel Analytics JR</span>
+                <span className="do-title">Painel Analisa Jr</span>
                 <div className="do-live">
                   <span className="do-live-dot" />
                   LIVE

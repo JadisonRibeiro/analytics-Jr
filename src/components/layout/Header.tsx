@@ -35,7 +35,7 @@ export function Header() {
         <a
           href="#home"
           className="flex items-center gap-2.5 pl-1"
-          aria-label="Analytics JR"
+          aria-label="Analisa Jr"
           data-magnetic
         >
           <img
@@ -44,7 +44,7 @@ export function Header() {
             className="h-8 w-auto drop-shadow-[0_0_12px_rgba(255,255,255,0.35)]"
           />
           <span className="hidden font-heading text-xs font-semibold uppercase tracking-[0.28em] text-white sm:inline">
-            Analytics JR
+            Analisa Jr
           </span>
         </a>
 

@@ -21,7 +21,7 @@ export function BannerSection() {
               <span className="absolute inset-0 animate-ping rounded-full bg-black opacity-60" />
               <span className="relative h-2 w-2 rounded-full bg-black" />
             </span>
-            Analytics JR
+            Analisa Jr
           </span>
 
           <motion.h2

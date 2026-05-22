@@ -29,7 +29,7 @@ export function SoftDivider({ label, tone = 'dark' }: Props) {
         <span
           className={`inline-block h-1.5 w-1.5 rounded-full ${dark ? 'bg-neon' : 'bg-brand-black'} animate-pulse`}
         />
-        <span className="text-[10px] uppercase tracking-[0.32em]">{label ?? 'Analytics JR'}</span>
+        <span className="text-[10px] uppercase tracking-[0.32em]">{label ?? 'Analisa Jr'}</span>
         <span
           className={`inline-block h-1.5 w-1.5 rounded-full ${dark ? 'bg-neon' : 'bg-brand-black'} animate-pulse`}
         />

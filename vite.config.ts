@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  base: process.env.DEPLOY_TARGET === 'gh' ? '/analytics-Jr/' : '/',
+  base: process.env.DEPLOY_TARGET === 'gh' ? '/analisa-jr/' : '/',
   plugins: [react()],
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },

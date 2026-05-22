@@ -33,8 +33,8 @@ export function HeroSection() {
             <div className="absolute inset-0 -z-10 rounded-full bg-black/60 blur-3xl" />
             <img
               src={asset('Logo_hero.png')}
-              alt="Analytics JR"
-              className="h-36 w-auto drop-shadow-[0_10px_40px_rgba(0,0,0,0.85)] sm:h-48 md:h-56 lg:h-64"
+              alt="Analisa Jr"
+              className="h-44 w-auto drop-shadow-[0_10px_40px_rgba(0,0,0,0.85)] sm:h-56 md:h-64 lg:h-72"
             />
           </motion.div>
 

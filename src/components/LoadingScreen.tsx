@@ -6,7 +6,7 @@ interface Props {
   onComplete: () => void;
 }
 
-const NAME = 'ANALYTICS JR';
+const NAME = 'ANALISA JR';
 const TAGLINE = 'Transformando dados em decisões';
 const TOTAL_DURATION = 3200;
 
@@ -152,7 +152,7 @@ export function LoadingScreen({ onComplete }: Props) {
 
               <motion.img
                 src={asset('Logo_Branca.png')}
-                alt="Analytics JR"
+                alt="Analisa Jr"
                 initial={{ scale: 0.6, opacity: 0, filter: 'blur(18px)' }}
                 animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
                 transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}

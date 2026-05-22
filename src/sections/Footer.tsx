@@ -13,11 +13,11 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <img
                 src={asset('Logo_Branca.png')}
-                alt="Analytics JR"
+                alt="Analisa Jr"
                 className="h-11 w-auto drop-shadow-[0_4px_12px_rgba(255,255,255,0.15)]"
               />
               <div className="font-heading text-lg font-semibold uppercase tracking-[0.3em] text-white">
-                Analytics JR
+                Analisa Jr
               </div>
             </div>
             <p className="mt-5 max-w-[340px] text-sm leading-relaxed">
@@ -83,7 +83,7 @@ export function Footer() {
               </li>
               <li>
                 <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="hover:text-white">
-                  @analytics.jr
+                  @analisa.jr
                 </a>
               </li>
               <li>Brasil</li>
@@ -92,7 +92,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs md:flex-row">
-          <div className="text-gray-4">© {new Date().getFullYear()} Analytics JR. Todos os direitos reservados.</div>
+          <div className="text-gray-4">© {new Date().getFullYear()} Analisa Jr. Todos os direitos reservados.</div>
           <div className="flex items-center gap-6 text-gray-4">
             <a href="#" className="hover:text-white">Privacidade</a>
             <a href="#" className="hover:text-white">Termos</a>

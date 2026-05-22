@@ -103,7 +103,7 @@ export function DashboardsSection() {
           </div>
           <div className="flex flex-col items-start gap-4 md:items-end">
             <motion.p variants={fadeUp} className="max-w-[460px] text-lg text-gray-5">
-              Cinco projetos entregues pela Analytics JR — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
+              Cinco projetos entregues pela Analisa Jr — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
             </motion.p>
             <motion.div
               variants={fadeUp}

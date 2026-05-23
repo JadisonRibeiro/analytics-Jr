@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-type ContactMethod = 'whatsapp' | 'email' | 'instagram' | 'phone';
+type ContactMethod = 'whatsapp' | 'email' | 'instagram' | 'phone' | 'form';
 
 function track(method: ContactMethod, label: string) {
   window.gtag?.('event', 'generate_lead', {
@@ -13,6 +13,18 @@ function track(method: ContactMethod, label: string) {
   });
   window.gtag?.('event', `click_${method}`, {
     link_url: label,
+  });
+}
+
+export function trackFormLead(payload: { pain?: string; source?: string }) {
+  window.gtag?.('event', 'generate_lead', {
+    method: 'form',
+    form_pain: payload.pain ?? '',
+    form_source: payload.source ?? '',
+  });
+  window.gtag?.('event', 'form_submit_success', {
+    form_pain: payload.pain ?? '',
+    form_source: payload.source ?? '',
   });
 }
 

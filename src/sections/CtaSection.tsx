@@ -7,6 +7,7 @@ import { ArrowRight, CheckCircle2, Mail, Phone, Sparkles } from 'lucide-react';
 import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { whatsappUrl, emailUrl, EMAIL, PHONE, PHONE_DISPLAY } from '@/utils/contact';
+import { trackFormLead } from '@/utils/analytics';
 
 const painOptions = [
   'Decisões baseadas em achismo',
@@ -100,6 +101,7 @@ export function FinalCtaSection() {
         const detail = json?.error ? ` (${json.error})` : '';
         throw new Error(`Falha no envio${detail}`);
       }
+      trackFormLead({ pain: values.pain, source });
       setSent(true);
       reset();
     } catch (err) {

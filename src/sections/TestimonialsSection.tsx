@@ -40,6 +40,16 @@ export function TestimonialsSection() {
         transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-none absolute left-0 top-[38%] hidden h-[620px] w-auto max-w-[40vw] -translate-y-1/2 object-contain object-left drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] lg:block"
       />
+      <motion.img
+        src={asset('cubo1.webp')}
+        alt=""
+        aria-hidden
+        initial={{ opacity: 0, x: 40, scaleX: -0.9, scaleY: 0.9 }}
+        whileInView={{ opacity: 1, x: 0, scaleX: -1, scaleY: 1 }}
+        viewport={viewportOnce}
+        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute right-0 top-[38%] hidden h-[620px] w-auto max-w-[40vw] -translate-y-1/2 object-contain object-right drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] lg:block"
+      />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(192,192,192,0.06),transparent_60%)]" />
       <div className="relative mx-auto max-w-[1280px] px-6">
         <motion.div

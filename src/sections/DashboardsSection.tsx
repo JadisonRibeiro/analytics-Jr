@@ -86,29 +86,26 @@ export function DashboardsSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={stagger}
-          className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end"
+          className="mb-16 flex flex-col items-center text-center"
         >
-          <div className="max-w-[640px]">
-            <motion.span variants={fadeUp} className="eyebrow text-gray-5">
-              Dashboards ao vivo
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
-            >
-              Painéis reais
-              <br className="hidden sm:block" />
-              que você pode explorar.
-            </motion.h2>
-          </div>
-          <div className="flex flex-col items-start gap-4 md:items-end">
-            <motion.p variants={fadeUp} className="max-w-[460px] text-lg text-gray-5">
-              Cinco projetos entregues pela Analisa Jr — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
-            </motion.p>
-            <motion.div
-              variants={fadeUp}
-              className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 backdrop-blur-sm"
-            >
+          <motion.span variants={fadeUp} className="eyebrow text-gray-5">
+            Dashboards ao vivo
+          </motion.span>
+          <motion.h2
+            variants={fadeUp}
+            className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
+          >
+            Painéis reais
+            <br className="hidden sm:block" />
+            que você pode explorar.
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[640px] text-lg text-gray-5">
+            Cinco projetos entregues pela Analisa Jr — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
+          </motion.p>
+          <motion.div
+            variants={fadeUp}
+            className="mt-6 inline-flex max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 backdrop-blur-sm"
+          >
               <span className="flex items-center gap-2">
                 <img src={asset('logos/microsoft.svg')} alt="" aria-hidden className="h-3.5 w-3.5 shrink-0" />
                 <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-white/85">
@@ -122,8 +119,7 @@ export function DashboardsSection() {
                   Power BI
                 </span>
               </span>
-            </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div

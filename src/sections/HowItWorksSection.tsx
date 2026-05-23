@@ -63,7 +63,7 @@ export function HowItWorksSection() {
             whileInView="show"
             viewport={viewportOnce}
             variants={stagger}
-            className="mb-20 max-w-[720px]"
+            className="mb-20 flex flex-col items-center text-center"
           >
             <motion.span variants={fadeUp} className="eyebrow text-gray-5">Como funciona</motion.span>
             <motion.h2
@@ -74,6 +74,9 @@ export function HowItWorksSection() {
               <br className="hidden sm:block" />
               desenhado para entregar impacto.
             </motion.h2>
+            <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[640px] text-lg text-gray-5">
+              Da descoberta inicial à entrega contínua — sem ruído, sem retrabalho.
+            </motion.p>
           </motion.div>
 
           <div ref={wrapRef} className="relative">

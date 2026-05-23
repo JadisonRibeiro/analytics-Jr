@@ -17,40 +17,59 @@ export function HeroSection() {
         playsInline
         preload="metadata"
         disablePictureInPicture
-        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-60 [filter:saturate(1.15)_contrast(1.08)]"
+        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-60 will-change-transform sm:[filter:saturate(1.15)_contrast(1.08)]"
+        style={{ transform: 'translate3d(0,0,0)' }}
       >
         <source src={asset('hero.mp4')} type="video/mp4" />
       </video>
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(10,10,10,0.5)_80%,rgba(10,10,10,0.85)_100%)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-brand-black" />
 
-      <div className="relative mx-auto flex w-full max-w-[980px] flex-col items-center px-6 text-center">
+      <div className="relative mx-auto flex w-full max-w-[1100px] flex-col items-center px-6 text-center">
         <motion.div initial="hidden" animate="show" variants={stagger} className="flex flex-col items-center">
           <motion.div
             variants={fadeUp}
-            className="relative mb-10 flex flex-col items-center justify-center gap-5"
+            className="relative mb-6 flex flex-col items-center justify-center sm:mb-8"
           >
             <div className="absolute inset-0 -z-10 rounded-full bg-black/60 blur-3xl" />
             <img
               src={asset('Logo_hero.png')}
               alt="Analisa Jr"
-              className="h-44 w-auto drop-shadow-[0_10px_40px_rgba(0,0,0,0.85)] sm:h-56 md:h-64 lg:h-72"
+              className="h-28 w-auto drop-shadow-[0_10px_40px_rgba(0,0,0,0.85)] sm:h-32 md:h-36 lg:h-40"
             />
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="mb-5 flex items-center gap-3 sm:mb-6"
+            aria-hidden
+          >
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-white/40 sm:w-16" />
+            <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70 sm:text-xs">
+              Analisa Jr · Power BI
+            </span>
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-white/40 sm:w-16" />
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            className="font-heading font-black uppercase leading-[1.15] tracking-normal text-gradient-wg sm:leading-[1.02] sm:tracking-[-0.01em]"
-            style={{ fontSize: 'clamp(2rem, 5.2vw, 4.25rem)' }}
+            className="font-heading font-black uppercase leading-[0.98] tracking-[-0.02em] sm:leading-[0.95]"
+            style={{ fontSize: 'clamp(2rem, 6.4vw, 5.25rem)' }}
           >
-            Transformando dados
-            <br className="hidden sm:block" />
-            <span className="text-white"> em decisões</span>
+            <span className="block text-gradient-wg sm:whitespace-nowrap">
+              Transformando
+            </span>
+            <span className="mt-1 block sm:mt-2 sm:whitespace-nowrap">
+              <span className="text-white">dados em </span>
+              <span className="bg-gradient-to-b from-white via-white to-neon bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(192,192,192,0.35)]">
+                decisões
+              </span>
+            </span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
-            className="mt-7 max-w-[620px] text-base leading-relaxed text-gray-5 sm:text-lg"
+            className="mt-8 max-w-[640px] text-base leading-relaxed text-gray-5 sm:text-lg"
           >
             Dashboards estratégicos em Power BI que revelam insights ocultos e impulsionam o crescimento do seu negócio com precisão analítica.
           </motion.p>

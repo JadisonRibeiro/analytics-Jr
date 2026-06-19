@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
 import { whatsappUrl } from '@/utils/contact';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function WhatsAppButton() {
+  const { t } = useLanguage();
   const [show, setShow] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -32,7 +34,7 @@ export function WhatsAppButton() {
                 exit={{ opacity: 0, x: 8 }}
                 className="hidden rounded-full bg-brand-black px-4 py-2 text-xs font-medium text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] md:inline-block"
               >
-                Fale conosco no WhatsApp
+                {t.whatsapp}
               </motion.span>
             )}
           </AnimatePresence>
@@ -42,7 +44,7 @@ export function WhatsAppButton() {
             target="_blank"
             rel="noreferrer"
             data-magnetic
-            aria-label="Fale conosco no WhatsApp"
+            aria-label={t.whatsapp}
             className="relative flex h-14 w-14 items-center justify-center rounded-full text-white shadow-[0_12px_32px_-8px_rgba(37,211,102,0.55)] transition-transform hover:scale-105"
             style={{ background: '#25D366' }}
           >

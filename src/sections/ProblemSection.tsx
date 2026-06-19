@@ -2,6 +2,7 @@ import { motion, type Variants } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import type { ComponentType, SVGProps } from 'react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function GuessworkArt(props: SVGProps<SVGSVGElement>) {
   return (
@@ -97,26 +98,7 @@ type Pain = {
   impact: string;
 };
 
-const pains: Pain[] = [
-  {
-    art: GuessworkArt,
-    title: 'Decisões no achismo',
-    desc: 'Você toma decisões baseado em intuição, não em evidências. Cada escolha vira um risco que poderia ser evitado.',
-    impact: 'Risco invisível',
-  },
-  {
-    art: OutdatedArt,
-    title: 'Relatórios desatualizados',
-    desc: 'Planilhas que levam horas para montar e chegam tarde demais. Quando os números ficam prontos, o momento já passou.',
-    impact: 'Tempo perdido',
-  },
-  {
-    art: DisconnectedArt,
-    title: 'Dados desconectados',
-    desc: 'CRM, ERP e marketing falam línguas diferentes. A visão única do negócio simplesmente não existe.',
-    impact: 'Visão fragmentada',
-  },
-];
+const PAIN_ARTS = [GuessworkArt, OutdatedArt, DisconnectedArt];
 
 const SMOOTH = [0.22, 1, 0.36, 1] as const;
 
@@ -137,11 +119,17 @@ const cardStagger: Variants = {
 export function ProblemSection() {
   const cardVariants = cardReveal;
   const containerVariants = cardStagger;
+  const { t } = useLanguage();
+  const pains: Pain[] = t.problem.pains.map((p, idx) => ({
+    art: PAIN_ARTS[idx],
+    title: p.title,
+    desc: p.desc,
+    impact: p.impact,
+  }));
 
   return (
     <section id="problema" className="relative overflow-hidden bg-brand-black py-28">
       <div className="perspective-grid opacity-40" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(192,192,192,0.08),transparent_55%)]" />
       <div className="relative mx-auto max-w-[1200px] px-6">
         <motion.div
           initial="hidden"
@@ -151,18 +139,18 @@ export function ProblemSection() {
           className="relative z-10 mb-16 text-center"
         >
           <motion.span variants={fadeUp} className="eyebrow justify-center text-gray-5">
-            O problema
+            {t.problem.eyebrow}
           </motion.span>
           <motion.h2
             variants={fadeUp}
             className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
           >
-            Seus dados estão em todo lugar.
+            {t.problem.title1}
             <br className="hidden sm:block" />
-            Suas decisões em lugar nenhum.
+            {t.problem.title2}
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[680px] text-lg text-gray-5">
-            Três sintomas que silenciosamente corroem o crescimento de empresas que ainda tratam dados como um item do checklist.
+            {t.problem.description}
           </motion.p>
         </motion.div>
 
@@ -173,9 +161,9 @@ export function ProblemSection() {
           variants={containerVariants}
           className="mx-auto grid max-w-[1100px] grid-cols-1 gap-7 sm:gap-8 md:grid-cols-3 md:gap-6"
         >
-          {pains.map((p) => (
+          {pains.map((p, idx) => (
             <motion.article
-              key={p.title}
+              key={idx}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
               className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 hover:border-black/15 hover:shadow-[0_36px_72px_-24px_rgba(0,0,0,0.7)] sm:p-8"

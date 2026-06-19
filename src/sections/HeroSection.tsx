@@ -3,8 +3,10 @@ import { ArrowRight, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/Button';
 import { fadeUp, stagger } from '@/utils/animations';
 import { asset } from '@/utils/asset';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section
       id="home"
@@ -46,7 +48,7 @@ export function HeroSection() {
           >
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-white/40 sm:w-16" />
             <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70 sm:text-xs">
-              Analisa Jr · Power BI
+              {t.hero.eyebrow}
             </span>
             <span className="h-px w-10 bg-gradient-to-l from-transparent to-white/40 sm:w-16" />
           </motion.div>
@@ -57,12 +59,12 @@ export function HeroSection() {
             style={{ fontSize: 'clamp(2rem, 6.4vw, 5.25rem)' }}
           >
             <span className="block text-gradient-wg sm:whitespace-nowrap">
-              Transformando
+              {t.hero.title1}
             </span>
             <span className="mt-1 block sm:mt-2 sm:whitespace-nowrap">
-              <span className="text-white">dados em </span>
+              <span className="text-white">{t.hero.title2a}</span>
               <span className="bg-gradient-to-b from-white via-white to-neon bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(192,192,192,0.35)]">
-                decisões
+                {t.hero.title2b}
               </span>
             </span>
           </motion.h1>
@@ -71,7 +73,7 @@ export function HeroSection() {
             variants={fadeUp}
             className="mt-8 max-w-[640px] text-base leading-relaxed text-gray-5 sm:text-lg"
           >
-            Dashboards estratégicos em Power BI que revelam insights ocultos e impulsionam o crescimento do seu negócio com precisão analítica.
+            {t.hero.description}
           </motion.p>
 
           <motion.div
@@ -98,11 +100,11 @@ export function HeroSection() {
             className="mt-8 flex flex-wrap items-center justify-center gap-4"
           >
             <a href="#cta">
-              <Button icon={<ArrowRight size={16} />}>Começar projeto</Button>
+              <Button icon={<ArrowRight size={16} />}>{t.hero.ctaPrimary}</Button>
             </a>
             <a href="#dashboards">
               <Button variant="ghost" icon={<BarChart3 size={16} />}>
-                Ver dashboards
+                {t.hero.ctaSecondary}
               </Button>
             </a>
           </motion.div>
@@ -111,7 +113,7 @@ export function HeroSection() {
       </div>
 
       <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.28em] text-gray-5">
-        Role para explorar
+        {t.hero.scroll}
       </div>
     </section>
   );

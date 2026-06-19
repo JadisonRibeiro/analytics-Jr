@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -8,65 +8,48 @@ import { WhatsAppIcon } from '@/assets/WhatsAppIcon';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { whatsappUrl, emailUrl, EMAIL, PHONE, PHONE_DISPLAY } from '@/utils/contact';
 import { trackFormLead } from '@/utils/analytics';
-
-const painOptions = [
-  'Decisões baseadas em achismo',
-  'Relatórios demoram demais para ficar prontos',
-  'Dados espalhados em múltiplas planilhas e sistemas',
-  'Falta visão consolidada do negócio',
-  'ERPs, CRMs e ferramentas não conversam entre si',
-  'Não sei quais KPIs devo acompanhar',
-  'Preciso apresentar dados para a diretoria',
-  'Quero evoluir um BI que já existe',
-  'Outro / Ainda não sei definir',
-] as const;
-
-const sourceOptions = [
-  'Planilhas (Excel / Google Sheets)',
-  'ERP corporativo (TOTVS, SAP, Protheus, RM, Sankhya)',
-  'ERP pequeno porte (Bling, Omie, Tiny, Conta Azul)',
-  'CRM (HubSpot, RD Station, Salesforce, Pipedrive)',
-  'Banco de dados (SQL Server, MySQL, PostgreSQL, Oracle)',
-  'E-commerce (Shopify, VTEX, Nuvemshop, WooCommerce)',
-  'Marketing digital (Google Analytics, Meta Ads, Google Ads)',
-  'APIs ou sistema próprio',
-  'Nuvem / Data Warehouse (AWS, BigQuery, Snowflake, Azure)',
-  'Ainda não temos base estruturada',
-  'Outro',
-] as const;
-
-const schema = z
-  .object({
-    name: z.string().min(2, 'Informe seu nome'),
-    email: z.string().email('E-mail inválido'),
-    company: z.string().min(2, 'Informe a empresa'),
-    phone: z
-      .string()
-      .refine(
-        (v) => {
-          const digits = v.replace(/\D/g, '');
-          return digits.length >= 10 && digits.length <= 11;
-        },
-        { message: 'Informe o telefone com DDD (ex: 99 99999-9999)' },
-      ),
-    pain: z.enum(painOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
-    source: z.enum(sourceOptions, { errorMap: () => ({ message: 'Selecione uma opção' }) }),
-    sourceOther: z.string().optional(),
-    message: z.string().min(10, 'Conte um pouco do seu contexto'),
-  })
-  .refine(
-    (d) => d.source !== 'Outro' || (d.sourceOther?.trim().length ?? 0) >= 2,
-    { message: 'Descreva a fonte utilizada', path: ['sourceOther'] },
-  );
-
-type FormValues = z.infer<typeof schema>;
+import { useLanguage } from '@/i18n/LanguageContext';
 
 const FORM_ENDPOINT =
   'https://script.google.com/macros/s/AKfycbwIAniCCDuijBs9qMPlU5R5U0XK7os9qUMpC6Kc5zfogSOdWRWkNo03upmNjJHiNlEBaw/exec';
 
 export function FinalCtaSection() {
+  const { t } = useLanguage();
   const [sent, setSent] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const painOptions = t.cta.painOptions;
+  const sourceOptions = t.cta.sourceOptions;
+  const sourceOtherValue = t.cta.sourceOtherValue;
+
+  const schema = useMemo(
+    () =>
+      z
+        .object({
+          name: z.string().min(2, t.cta.errors.name),
+          email: z.string().email(t.cta.errors.email),
+          company: z.string().min(2, t.cta.errors.company),
+          phone: z.string().refine(
+            (v) => {
+              const digits = v.replace(/\D/g, '');
+              return digits.length >= 8 && digits.length <= 15;
+            },
+            { message: t.cta.errors.phone },
+          ),
+          pain: z.string().min(1, t.cta.errors.select),
+          source: z.string().min(1, t.cta.errors.select),
+          sourceOther: z.string().optional(),
+          message: z.string().min(10, t.cta.errors.message),
+        })
+        .refine(
+          (d) => d.source !== sourceOtherValue || (d.sourceOther?.trim().length ?? 0) >= 2,
+          { message: t.cta.errors.sourceOther, path: ['sourceOther'] },
+        ),
+    [t, sourceOtherValue],
+  );
+
+  type FormValues = z.infer<typeof schema>;
+
   const {
     register,
     handleSubmit,
@@ -81,7 +64,7 @@ export function FinalCtaSection() {
     setSubmitError(null);
     try {
       const source =
-        values.source === 'Outro' && values.sourceOther
+        values.source === sourceOtherValue && values.sourceOther
           ? values.sourceOther
           : values.source;
 
@@ -98,18 +81,13 @@ export function FinalCtaSection() {
       const res = await fetch(FORM_ENDPOINT, { method: 'POST', body });
       const json = await res.json().catch(() => null);
       if (!res.ok || !json?.ok) {
-        const detail = json?.error ? ` (${json.error})` : '';
-        throw new Error(`Falha no envio${detail}`);
+        throw new Error('submit-failed');
       }
       trackFormLead({ pain: values.pain, source });
       setSent(true);
       reset();
-    } catch (err) {
-      setSubmitError(
-        err instanceof Error && err.message.startsWith('Falha no envio')
-          ? err.message + ' — tente novamente ou fale pelo WhatsApp.'
-          : 'Não conseguimos enviar agora. Tente novamente ou fale pelo WhatsApp.',
-      );
+    } catch {
+      setSubmitError(t.cta.submitError);
     }
   };
 
@@ -150,17 +128,17 @@ export function FinalCtaSection() {
                 className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-black/65"
               >
                 <Sparkles size={12} className="text-black/70" />
-                Fale com a gente
+                {t.cta.eyebrow}
               </motion.div>
 
               <motion.h2
                 variants={fadeUp}
                 className="mt-6 font-heading text-[clamp(2.2rem,5vw,4rem)] font-bold uppercase leading-[1.15] tracking-normal sm:leading-[0.98] sm:tracking-[-0.02em] text-black"
               >
-                Pronto para decidir
+                {t.cta.title1}
                 <br className="hidden sm:block" />
                 <span className="bg-gradient-to-r from-black via-black/75 to-black/45 bg-clip-text text-transparent">
-                  com dados?
+                  {t.cta.title2}
                 </span>
               </motion.h2>
 
@@ -168,11 +146,11 @@ export function FinalCtaSection() {
                 variants={fadeUp}
                 className="mt-7 max-w-[460px] text-lg leading-relaxed text-black/70"
               >
-                Conte seu contexto em 1 minuto. Respondemos com uma leitura estratégica em até 24 horas úteis.
+                {t.cta.description}
               </motion.p>
 
               <motion.ul variants={fadeUp} className="mt-8 space-y-3">
-                {['Diagnóstico gratuito', 'Resposta em 24h', 'Sem compromisso'].map((b) => (
+                {t.cta.bullets.map((b) => (
                   <li key={b} className="flex items-center gap-3 text-black/80">
                     <CheckCircle2 size={18} className="text-black" /> {b}
                   </li>
@@ -222,7 +200,7 @@ export function FinalCtaSection() {
                 <div className="absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.05),transparent_65%)]" />
               </div>
               <div className="absolute -top-3 left-6 z-20 rounded-full bg-neon px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-black shadow-[0_8px_24px_-6px_rgba(192,192,192,0.55)] ring-1 ring-white/30">
-                Formulário rápido
+                {t.cta.formBadge}
               </div>
 
               {sent ? (
@@ -240,46 +218,46 @@ export function FinalCtaSection() {
                   >
                     <CheckCircle2 size={28} />
                   </motion.div>
-                  <h3 className="mt-6 font-heading text-2xl font-semibold text-white">Mensagem recebida.</h3>
+                  <h3 className="mt-6 font-heading text-2xl font-semibold text-white">{t.cta.successTitle}</h3>
                   <p className="mt-2 max-w-[360px] text-white/70">
-                    Obrigado. Nosso time retorna em até 24 horas úteis com uma leitura do seu cenário.
+                    {t.cta.successDesc}
                   </p>
                   <button
                     type="button"
                     onClick={() => setSent(false)}
                     className="mt-6 text-sm font-medium text-white underline-offset-4 hover:underline"
                   >
-                    Enviar outra mensagem
+                    {t.cta.sendAnother}
                   </button>
                 </motion.div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Nome" error={errors.name?.message}>
-                    <input {...register('name')} className={inputCls} placeholder="Seu nome" />
+                  <Field label={t.cta.labels.name} error={errors.name?.message}>
+                    <input {...register('name')} className={inputCls} placeholder={t.cta.placeholders.name} />
                   </Field>
-                  <Field label="E-mail" error={errors.email?.message}>
-                    <input {...register('email')} type="email" className={inputCls} placeholder="voce@empresa.com" />
+                  <Field label={t.cta.labels.email} error={errors.email?.message}>
+                    <input {...register('email')} type="email" className={inputCls} placeholder={t.cta.placeholders.email} />
                   </Field>
-                  <Field label="Empresa" error={errors.company?.message}>
-                    <input {...register('company')} className={inputCls} placeholder="Nome da empresa" />
+                  <Field label={t.cta.labels.company} error={errors.company?.message}>
+                    <input {...register('company')} className={inputCls} placeholder={t.cta.placeholders.company} />
                   </Field>
-                  <Field label="WhatsApp com DDD" error={errors.phone?.message}>
+                  <Field label={t.cta.labels.phone} error={errors.phone?.message}>
                     <input
                       {...register('phone')}
                       inputMode="tel"
                       className={inputCls}
-                      placeholder="(99) 99999-9999"
+                      placeholder={t.cta.placeholders.phone}
                     />
                   </Field>
                   <div className="sm:col-span-2">
-                    <Field label="Maior dor hoje" error={errors.pain?.message}>
+                    <Field label={t.cta.labels.pain} error={errors.pain?.message}>
                       <select
                         {...register('pain')}
                         defaultValue=""
                         className={`${inputCls} ${selectCls}`}
                       >
                         <option value="" disabled>
-                          Selecione…
+                          {t.cta.placeholders.select}
                         </option>
                         {painOptions.map((p) => (
                           <option key={p} value={p}>
@@ -290,14 +268,14 @@ export function FinalCtaSection() {
                     </Field>
                   </div>
                   <div className="sm:col-span-2">
-                    <Field label="Onde estão seus dados hoje?" error={errors.source?.message}>
+                    <Field label={t.cta.labels.source} error={errors.source?.message}>
                       <select
                         {...register('source')}
                         defaultValue=""
                         className={`${inputCls} ${selectCls}`}
                       >
                         <option value="" disabled>
-                          Selecione…
+                          {t.cta.placeholders.select}
                         </option>
                         {sourceOptions.map((s) => (
                           <option key={s} value={s}>
@@ -307,24 +285,24 @@ export function FinalCtaSection() {
                       </select>
                     </Field>
                   </div>
-                  {selectedSource === 'Outro' && (
+                  {selectedSource === sourceOtherValue && (
                     <div className="sm:col-span-2">
-                      <Field label="Qual fonte?" error={errors.sourceOther?.message}>
+                      <Field label={t.cta.labels.sourceOther} error={errors.sourceOther?.message}>
                         <input
                           {...register('sourceOther')}
                           className={inputCls}
-                          placeholder="Ex: sistema próprio, ClickUp, Notion, Airtable…"
+                          placeholder={t.cta.placeholders.sourceOther}
                         />
                       </Field>
                     </div>
                   )}
                   <div className="sm:col-span-2">
-                    <Field label="Contexto" error={errors.message?.message}>
+                    <Field label={t.cta.labels.message} error={errors.message?.message}>
                       <textarea
                         {...register('message')}
                         rows={4}
                         className={`${inputCls} resize-none`}
-                        placeholder="Conte em poucas linhas o desafio que você está enfrentando."
+                        placeholder={t.cta.placeholders.message}
                       />
                     </Field>
                   </div>
@@ -335,14 +313,14 @@ export function FinalCtaSection() {
                       data-magnetic
                       className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-neon px-6 py-4 text-sm font-semibold text-black ring-1 ring-white/20 transition-all hover:gap-3 hover:bg-white hover:shadow-[0_20px_40px_-12px_rgba(192,192,192,0.55)] disabled:opacity-60"
                     >
-                      {isSubmitting ? 'Enviando…' : 'Enviar mensagem'}
+                      {isSubmitting ? t.cta.submitting : t.cta.submit}
                       <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
                     </button>
                     {submitError && (
                       <p className="mt-3 text-xs text-[#F87171]">{submitError}</p>
                     )}
                     <p className="mt-3 text-xs text-white/55">
-                      Ao enviar, você concorda com nossa política de privacidade.
+                      {t.cta.privacy}
                     </p>
                   </div>
                 </div>

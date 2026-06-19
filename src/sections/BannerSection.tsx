@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { viewportOnce } from '@/utils/animations';
 import { PipelineAnimation } from '@/components/PipelineAnimation';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function BannerSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative overflow-hidden bg-white py-32 sm:py-40">
       <WaveDivider position="top" />
@@ -31,10 +33,10 @@ export function BannerSection() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="mx-auto mt-6 max-w-[820px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-black"
           >
-            A força dos dados
+            {t.banner.title1}
             <br className="hidden sm:block" />
             <span className="bg-gradient-to-r from-black via-black/70 to-black/40 bg-clip-text text-transparent">
-              ao seu alcance.
+              {t.banner.title2}
             </span>
           </motion.h2>
 
@@ -45,7 +47,7 @@ export function BannerSection() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
             className="mt-6 max-w-[620px] text-lg leading-relaxed text-black/65"
           >
-            Transformamos números em clareza estratégica — para que cada decisão seja sustentada por evidência, velocidade e visão de futuro.
+            {t.banner.description}
           </motion.p>
         </motion.div>
 
@@ -91,7 +93,7 @@ function WaveDivider({ position }: { position: 'top' | 'bottom' }) {
       >
         <motion.path
           fill="#000"
-          initial={{ opacity: 0.95 }}
+          initial={{ opacity: 1 }}
           animate={{
             d: [
               'M0,0 L1440,0 L1440,60 C1200,110 960,20 720,60 C480,100 240,30 0,70 Z',

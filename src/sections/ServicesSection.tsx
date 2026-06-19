@@ -2,6 +2,7 @@ import { motion, type Variants } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import type { ComponentType, SVGProps } from 'react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 function DashboardArt(props: SVGProps<SVGSVGElement>) {
   return (
@@ -471,44 +472,7 @@ type Service = {
   tag: string;
 };
 
-const services: Service[] = [
-  {
-    art: DashboardArt,
-    title: 'Dashboards interativos',
-    desc: 'Painéis visuais e acionáveis que respondem às perguntas certas em tempo real.',
-    tag: 'Visualização',
-  },
-  {
-    art: ModelingArt,
-    title: 'Modelagem de dados',
-    desc: 'Estruturas otimizadas em estrela, com relacionamentos robustos e performance alta.',
-    tag: 'Arquitetura',
-  },
-  {
-    art: EtlArt,
-    title: 'ETL & integrações',
-    desc: 'Pipelines que unificam ERP, CRM, planilhas e APIs em uma fonte única da verdade.',
-    tag: 'Integração',
-  },
-  {
-    art: AutomationArt,
-    title: 'Automação de relatórios',
-    desc: 'Entregas automáticas para stakeholders no formato e horário certos, sem esforço manual.',
-    tag: 'Operação',
-  },
-  {
-    art: SecurityArt,
-    title: 'Governança & segurança',
-    desc: 'RLS, versionamento e controle granular para proteger o ativo mais estratégico: seus dados.',
-    tag: 'Segurança',
-  },
-  {
-    art: TrainingArt,
-    title: 'Treinamento & consultoria',
-    desc: 'Capacitamos seu time para operar, evoluir e extrair o máximo da sua stack de BI.',
-    tag: 'Capacitação',
-  },
-];
+const SERVICE_ARTS = [DashboardArt, ModelingArt, EtlArt, AutomationArt, SecurityArt, TrainingArt];
 
 const SMOOTH = [0.22, 1, 0.36, 1] as const;
 
@@ -529,10 +493,16 @@ const cardStagger: Variants = {
 export function ServicesSection() {
   const cardVariants = cardReveal;
   const containerVariants = cardStagger;
+  const { t } = useLanguage();
+  const services: Service[] = t.services.items.map((s, idx) => ({
+    art: SERVICE_ARTS[idx],
+    title: s.title,
+    desc: s.desc,
+    tag: s.tag,
+  }));
   return (
     <section id="servicos" className="relative overflow-hidden bg-brand-black py-28">
       <div className="perspective-grid opacity-30" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(192,192,192,0.08),transparent_55%)]" />
 
       <div className="relative mx-auto max-w-[1200px] px-6">
         <motion.div
@@ -542,17 +512,17 @@ export function ServicesSection() {
           variants={stagger}
           className="relative z-10 mb-16 text-center"
         >
-          <motion.span variants={fadeUp} className="eyebrow text-gray-5">Serviços</motion.span>
+          <motion.span variants={fadeUp} className="eyebrow text-gray-5">{t.services.eyebrow}</motion.span>
           <motion.h2
             variants={fadeUp}
             className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
           >
-            Análise completa,
+            {t.services.title1}
             <br className="hidden sm:block" />
-            do dado bruto à decisão.
+            {t.services.title2}
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[640px] text-lg text-gray-5">
-            Seis frentes especializadas — combinadas sob medida para o momento da sua operação.
+            {t.services.description}
           </motion.p>
         </motion.div>
 
@@ -563,9 +533,9 @@ export function ServicesSection() {
           variants={containerVariants}
           className="relative z-10 mx-auto grid max-w-[1140px] grid-cols-1 gap-7 sm:gap-8 md:grid-cols-2 md:gap-6 lg:grid-cols-3"
         >
-          {services.map((s) => (
+          {services.map((s, idx) => (
             <motion.article
-              key={s.title}
+              key={idx}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.35, ease: SMOOTH } }}
               className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white p-7 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.55)] transition-all duration-500 hover:border-black/15 hover:shadow-[0_36px_72px_-24px_rgba(0,0,0,0.7)] sm:p-8"

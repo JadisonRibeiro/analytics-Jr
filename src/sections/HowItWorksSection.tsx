@@ -3,31 +3,20 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const steps = [
-  {
-    n: '01',
-    title: 'Diagnóstico',
-    desc: 'Imersão no seu negócio: mapeamos fontes, KPIs prioritários e o cenário atual de tomada de decisão.',
-    bullets: ['Workshop estratégico', 'Auditoria de dados', 'Priorização de KPIs'],
-  },
-  {
-    n: '02',
-    title: 'Construção',
-    desc: 'Modelagem, ETL e desenvolvimento dos dashboards em Power BI com sprints semanais e validação contínua.',
-    bullets: ['Modelo estrela otimizado', 'Pipelines automatizados', 'UX refinado'],
-  },
-  {
-    n: '03',
-    title: 'Evolução',
-    desc: 'Treinamento do time, monitoria e ciclo de melhoria contínua para que os dashboards evoluam com a operação.',
-    bullets: ['Onboarding dos usuários', 'Governança ativa', 'Suporte dedicado'],
-  },
-];
+const STEP_NUMBERS = ['01', '02', '03'];
 
 export function HowItWorksSection() {
+  const { t } = useLanguage();
+  const steps = t.process.steps.map((s, i) => ({
+    n: STEP_NUMBERS[i],
+    title: s.title,
+    desc: s.desc,
+    bullets: s.bullets,
+  }));
   const lineRef = useRef<SVGLineElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -55,7 +44,6 @@ export function HowItWorksSection() {
 
   return (
     <section ref={sectionRef} id="processo" className="relative overflow-hidden bg-brand-black py-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(192,192,192,0.08),transparent_55%),radial-gradient(circle_at_80%_80%,rgba(192,192,192,0.05),transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,10,10,0.25)_0%,rgba(10,10,10,0.55)_70%,rgba(10,10,10,0.8)_100%)]" />
         <div className="relative z-10 mx-auto max-w-[1280px] px-6">
           <motion.div
@@ -65,17 +53,17 @@ export function HowItWorksSection() {
             variants={stagger}
             className="mb-20 flex flex-col items-center text-center"
           >
-            <motion.span variants={fadeUp} className="eyebrow text-gray-5">Como funciona</motion.span>
+            <motion.span variants={fadeUp} className="eyebrow text-gray-5">{t.process.eyebrow}</motion.span>
             <motion.h2
               variants={fadeUp}
               className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
             >
-              Um processo em três fases,
+              {t.process.title1}
               <br className="hidden sm:block" />
-              desenhado para entregar impacto.
+              {t.process.title2}
             </motion.h2>
             <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[640px] text-lg text-gray-5">
-              Da descoberta inicial à entrega contínua — sem ruído, sem retrabalho.
+              {t.process.description}
             </motion.p>
           </motion.div>
 

@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { cardReveal, fadeUp, staggerFast, stagger, viewportOnce } from '@/utils/animations';
 import { asset } from '@/utils/asset';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface DashboardItem {
   title: string;
@@ -21,11 +22,8 @@ interface DashboardItem {
   cover: string;
 }
 
-const dashboards: DashboardItem[] = [
+const DASHBOARD_META = [
   {
-    title: 'Dashboard Comercial',
-    category: 'Vendas & Receita',
-    description: 'Visão completa de pipeline, ticket médio, conversão por canal e desempenho comercial em tempo real.',
     icon: TrendingUp,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiZDNmNDI4ZjktNmQzNC00OWU0LWI3MTItZmI5MGNhZTYwZWRmIiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
@@ -33,9 +31,6 @@ const dashboards: DashboardItem[] = [
     cover: 'dashboards/comercial.png',
   },
   {
-    title: 'Análise de Projetos',
-    category: 'Gestão',
-    description: 'Acompanhamento de cronograma, status de entregas, alocação de recursos e saúde de cada projeto.',
     icon: BarChart3,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiZWJmOWE1M2UtOTVlYy00YjBkLWI0MzEtYmI2ZGNjN2MyYTBlIiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
@@ -43,9 +38,6 @@ const dashboards: DashboardItem[] = [
     cover: 'dashboards/projetos.png',
   },
   {
-    title: 'Análise de Pareto',
-    category: 'Qualidade',
-    description: 'Priorização dos principais ofensores com base na regra 80/20 para foco em ações de maior impacto.',
     icon: PieChart,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiNmY2MGI2NjctOTJjYi00NTQzLTlmMWItMTk1ZDAwMTdjZjU0IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
@@ -53,9 +45,6 @@ const dashboards: DashboardItem[] = [
     cover: 'dashboards/pareto.png',
   },
   {
-    title: 'Análise Financeira',
-    category: 'Controladoria',
-    description: 'DRE gerencial, fluxo de caixa, centros de custo e margem por unidade de negócio em um só painel.',
     icon: LineChart,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiYTVmMmY1YTktY2NhYy00ZTFkLWEwODQtMDZmNWZkZDQ5OTE2IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
@@ -63,9 +52,6 @@ const dashboards: DashboardItem[] = [
     cover: 'dashboards/financeiro.png',
   },
   {
-    title: 'Finanças Pessoais',
-    category: 'Rastreamento Pessoal',
-    description: 'Controle de receitas, despesas e metas mensais com visão consolidada do patrimônio e do fluxo de caixa pessoal.',
     icon: Wallet,
     embedUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiZWRjZWQ1MTMtNTQxMS00OGJlLWFkMzUtMjIyOWNkMTliN2M2IiwidCI6IjhlOGY0NzRiLTkwOWMtNDliOS1iNzhlLTFjOGZkYTQ4MDRjNiJ9',
@@ -75,10 +61,16 @@ const dashboards: DashboardItem[] = [
 ];
 
 export function DashboardsSection() {
+  const { t } = useLanguage();
+  const dashboards: DashboardItem[] = t.dashboards.items.map((item, idx) => ({
+    title: item.title,
+    category: item.category,
+    description: item.description,
+    ...DASHBOARD_META[idx],
+  }));
   return (
     <section id="dashboards" className="relative overflow-hidden bg-brand-black py-28">
       <div className="perspective-grid opacity-40" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(192,192,192,0.08),transparent_60%)]" />
 
       <div className="relative mx-auto max-w-[1320px] px-6">
         <motion.div
@@ -89,18 +81,18 @@ export function DashboardsSection() {
           className="mb-16 flex flex-col items-center text-center"
         >
           <motion.span variants={fadeUp} className="eyebrow text-gray-5">
-            Dashboards ao vivo
+            {t.dashboards.eyebrow}
           </motion.span>
           <motion.h2
             variants={fadeUp}
             className="mt-4 font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.2] tracking-normal sm:leading-[1.05] sm:tracking-tight text-gradient-wg"
           >
-            Painéis reais
+            {t.dashboards.title1}
             <br className="hidden sm:block" />
-            que você pode explorar.
+            {t.dashboards.title2}
           </motion.h2>
           <motion.p variants={fadeUp} className="mx-auto mt-6 max-w-[640px] text-lg text-gray-5">
-            Cinco projetos entregues pela Analisa Jr — clique em qualquer um para abrir em tela cheia e navegar pelos filtros.
+            {t.dashboards.description}
           </motion.p>
           <motion.div
             variants={fadeUp}
@@ -129,9 +121,9 @@ export function DashboardsSection() {
           variants={staggerFast}
           className="grid gap-8 md:grid-cols-2"
         >
-          {dashboards.map((d) => (
+          {dashboards.map((d, idx) => (
             <motion.a
-              key={d.title}
+              key={idx}
               href={d.embedUrl}
               target="_blank"
               rel="noreferrer"
@@ -142,7 +134,7 @@ export function DashboardsSection() {
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-brand-black">
                 <img
                   src={asset(d.cover)}
-                  alt={`Prévia do ${d.title}`}
+                  alt={d.title}
                   loading="lazy"
                   decoding="async"
                   onError={(e) => {
@@ -154,10 +146,10 @@ export function DashboardsSection() {
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
                   <div className="flex items-center gap-1.5">
                     <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                    <span className="text-[10px] uppercase tracking-[0.24em] text-white/80">Ao vivo</span>
+                    <span className="text-[10px] uppercase tracking-[0.24em] text-white/80">{t.dashboards.live}</span>
                   </div>
                   <span className="rounded-full border border-white/30 bg-black/50 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] text-white backdrop-blur">
-                    Clique para explorar
+                    {t.dashboards.clickToExplore}
                   </span>
                 </div>
 
@@ -182,7 +174,7 @@ export function DashboardsSection() {
                 <p className="mt-3 text-gray-5">{d.description}</p>
 
                 <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-neon transition group-hover:gap-3 group-hover:text-white">
-                  Abrir dashboard
+                  {t.dashboards.open}
                   <ArrowUpRight size={14} />
                 </div>
               </div>
@@ -197,13 +189,13 @@ export function DashboardsSection() {
           variants={fadeUp}
           className="mt-14 flex flex-col items-center gap-3 text-center"
         >
-          <p className="text-gray-5">Quer um painel como esses — mas pensado para o seu negócio?</p>
+          <p className="text-gray-5">{t.dashboards.bottomNote}</p>
           <a
             href="#cta"
             data-magnetic
             className="btn btn-primary"
           >
-            Construir meu dashboard
+            {t.dashboards.bottomCta}
             <ArrowUpRight size={14} />
           </a>
         </motion.div>

@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { asset } from '@/utils/asset';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface Props {
   onComplete: () => void;
 }
 
-const NAME = 'ANALISA JR';
-const TAGLINE = 'Transformando dados em decisões';
 const TOTAL_DURATION = 3200;
 
 export function LoadingScreen({ onComplete }: Props) {
+  const { t } = useLanguage();
+  const NAME = t.loader.name;
+  const TAGLINE = t.loader.tagline;
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
 
@@ -206,7 +208,7 @@ export function LoadingScreen({ onComplete }: Props) {
                 />
               </div>
               <div className="flex w-full items-center justify-between text-[9px] uppercase tracking-[0.42em] text-white/40">
-                <span>Inicializando</span>
+                <span>{t.loader.progressLabel}</span>
                 <span className="tabular-nums text-white/70">
                   {percent.toString().padStart(3, '0')}
                 </span>

@@ -95,7 +95,6 @@ export function DataMarqueeSection({ wordsA, wordsB, speed = 3 }: DataMarqueeSec
       aria-hidden
       className="relative isolate flex min-h-[220px] items-center justify-center overflow-hidden bg-brand-black py-12 sm:min-h-[280px] sm:py-16"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(192,192,192,0.12),transparent_60%)]" />
 
       <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-center">
         <div className="flex w-full justify-center">

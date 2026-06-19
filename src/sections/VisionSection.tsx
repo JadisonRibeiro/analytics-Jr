@@ -2,8 +2,10 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { FuturePulse } from '@/components/FuturePulse';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function VisionSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative bg-brand-black py-20 sm:py-28">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-brand-black to-transparent" />
@@ -32,19 +34,19 @@ export function VisionSection() {
                 className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-black/60"
               >
                 <Sparkles size={12} className="text-black/70" />
-                Nossa visão
+                {t.vision.eyebrow}
               </motion.div>
 
               <motion.h2
                 variants={fadeUp}
                 className="mt-6 font-heading text-[clamp(2.2rem,5vw,4rem)] font-bold uppercase leading-[1.15] tracking-normal sm:leading-[0.98] sm:tracking-[-0.02em] text-black"
               >
-                O futuro
+                {t.vision.title1}
                 <br className="hidden sm:block" />
-                é orientado
+                {t.vision.title2}
                 <br className="hidden sm:block" />
                 <span className="bg-gradient-to-r from-black via-black/70 to-black/40 bg-clip-text text-transparent">
-                  por dados.
+                  {t.vision.title3}
                 </span>
               </motion.h2>
 
@@ -52,18 +54,13 @@ export function VisionSection() {
                 variants={fadeUp}
                 className="mt-8 max-w-[520px] text-lg leading-relaxed text-black/70"
               >
-                Empresas que tomam decisão com evidência superam, em média, 5× as que operam por intuição. Nosso trabalho é encurtar a distância entre o que os seus dados já sabem e o que o seu time decide amanhã.
+                {t.vision.description}
               </motion.p>
 
               <motion.div variants={fadeUp} className="mt-10 grid grid-cols-2 gap-5">
-                {[
-                  { k: 'Evidência', v: 'Zero achismo na mesa de decisão.' },
-                  { k: 'Velocidade', v: 'Insight disponível em minutos.' },
-                  { k: 'Precisão', v: 'Modelagem validada ponta a ponta.' },
-                  { k: 'Escala', v: 'Pipelines que crescem com você.' },
-                ].map((b, i) => (
+                {t.vision.blocks.map((b, i) => (
                   <motion.div
-                    key={b.k}
+                    key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={viewportOnce}
@@ -82,7 +79,7 @@ export function VisionSection() {
                 data-magnetic
                 className="mt-10 inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition-all hover:gap-3 hover:bg-black/85"
               >
-                Conversar com um especialista
+                {t.vision.cta}
                 <ArrowUpRight size={16} />
               </motion.a>
             </motion.div>
@@ -108,17 +105,17 @@ export function VisionSection() {
                 <div className="pointer-events-none absolute left-1/2 top-4 bottom-4 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/15 to-transparent" />
 
                 <div className="relative flex flex-col items-start gap-1 px-5 py-4 sm:px-7 sm:py-5">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">Impacto</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">{t.vision.stat1Label}</span>
                   <span className="font-heading text-2xl font-bold leading-none sm:text-[1.65rem]">
                     <span className="bg-gradient-to-r from-white to-[#5EEAD4] bg-clip-text text-transparent">+340%</span>
                   </span>
-                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">receita destravada</span>
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">{t.vision.stat1Sub}</span>
                 </div>
 
                 <div className="relative flex flex-col items-start gap-1 px-5 py-4 sm:px-7 sm:py-5">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">Tempo médio</span>
-                  <span className="font-heading text-2xl font-bold leading-none sm:text-[1.65rem]">6 semanas</span>
-                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">do go-live ao insight</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">{t.vision.stat2Label}</span>
+                  <span className="font-heading text-2xl font-bold leading-none sm:text-[1.65rem]">{t.vision.stat2Value}</span>
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-white/45">{t.vision.stat2Sub}</span>
                 </div>
               </motion.div>
             </motion.div>

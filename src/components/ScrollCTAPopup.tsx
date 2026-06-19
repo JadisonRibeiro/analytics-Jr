@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Sparkles, ArrowUpRight } from 'lucide-react';
 import { whatsappUrl } from '@/utils/contact';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 const STORAGE_KEY = 'ajr-scroll-cta-shown';
 const TRIGGER_RATIO = 0.45;
 const MIN_DELAY_MS = 12000;
 
 export function ScrollCTAPopup() {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -66,7 +68,7 @@ export function ScrollCTAPopup() {
         >
           <button
             type="button"
-            aria-label="Fechar"
+            aria-label={t.nav.close}
             onClick={close}
             className="absolute inset-0 cursor-default bg-black/70 backdrop-blur-md"
           />
@@ -91,7 +93,7 @@ export function ScrollCTAPopup() {
             <button
               type="button"
               onClick={close}
-              aria-label="Fechar"
+              aria-label={t.nav.close}
               className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/10 hover:text-white"
             >
               <X size={16} />
@@ -100,25 +102,24 @@ export function ScrollCTAPopup() {
             <div className="relative">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 font-heading text-[10px] font-semibold uppercase tracking-[0.22em] text-neon">
                 <Sparkles size={12} className="text-neon" />
-                Diagnóstico gratuito
+                {t.scrollCta.badge}
               </span>
 
               <h2
                 id="scroll-cta-title"
                 className="mt-5 font-heading text-[clamp(1.75rem,4.5vw,2.5rem)] font-bold uppercase leading-[1.05] tracking-tight text-white"
               >
-                Cansado de decidir
+                {t.scrollCta.title1}
                 <br />
-                <span className="text-gradient-wg">no escuro?</span>
+                <span className="text-gradient-wg">{t.scrollCta.title2}</span>
               </h2>
 
               <p className="mt-4 max-w-[440px] text-[15px] leading-relaxed text-gray-5 sm:text-base">
-                Em 30 minutos, mapeamos onde seus dados estão travando o crescimento — e o caminho mais
-                curto para virar esse jogo. Sem custo, sem compromisso.
+                {t.scrollCta.description}
               </p>
 
               <ul className="mt-6 space-y-2 text-sm text-white/75">
-                {['Análise da sua operação atual', 'Plano de ação personalizado', 'Sem compromisso de contratação'].map(
+                {t.scrollCta.bullets.map(
                   (item) => (
                     <li key={item} className="flex items-center gap-3">
                       <span
@@ -142,7 +143,7 @@ export function ScrollCTAPopup() {
                   className="group relative inline-flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-6 py-3.5 font-heading text-sm font-bold uppercase tracking-[0.14em] text-brand-black transition hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.4)]"
                 >
                   <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                  Quero meu diagnóstico
+                  {t.scrollCta.primary}
                   <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <button
@@ -150,12 +151,12 @@ export function ScrollCTAPopup() {
                   onClick={close}
                   className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3.5 font-heading text-xs font-semibold uppercase tracking-[0.18em] text-white/70 transition hover:border-white/30 hover:text-white"
                 >
-                  Agora não
+                  {t.scrollCta.dismiss}
                 </button>
               </div>
 
               <p className="mt-5 text-[11px] uppercase tracking-[0.18em] text-white/35">
-                Resposta em até 24h • Atendimento humano
+                {t.scrollCta.footer}
               </p>
             </div>
           </motion.div>

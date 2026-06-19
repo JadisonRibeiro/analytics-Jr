@@ -4,18 +4,21 @@ import { motion } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { asset } from '@/utils/asset';
-
-const links = [
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#dashboards', label: 'Cases' },
-  { href: '#processo', label: 'Processo' },
-  { href: '#investimento', label: 'Investimento' },
-  { href: '#faq', label: 'FAQ' },
-];
+import { useLanguage } from '@/i18n/LanguageContext';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 export function Header() {
   const scrolled = useScrollAnimation(80);
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const links = [
+    { href: '#servicos', label: t.nav.services },
+    { href: '#dashboards', label: t.nav.cases },
+    { href: '#processo', label: t.nav.process },
+    { href: '#investimento', label: t.nav.investment },
+    { href: '#faq', label: t.nav.faq },
+  ];
 
   return (
     <motion.header
@@ -26,7 +29,7 @@ export function Header() {
       style={{ willChange: 'transform' }}
     >
       <div
-        className={`flex w-full max-w-[980px] items-center justify-between gap-6 rounded-full border px-3 py-2 backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-500 sm:px-4 ${
+        className={`flex w-full max-w-[1080px] items-center justify-between gap-4 rounded-full border px-3 py-2 backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-500 sm:px-4 ${
           scrolled
             ? 'border-white/15 bg-brand-black/80 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.65)]'
             : 'border-white/10 bg-white/[0.04] shadow-[0_10px_28px_-14px_rgba(0,0,0,0.55)]'
@@ -61,61 +64,70 @@ export function Header() {
           ))}
         </nav>
 
-        <a
-          href="#cta"
-          data-magnetic
-          className="hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-[12.5px] font-medium text-brand-black transition hover:-translate-y-[1px] hover:shadow-[0_10px_24px_-8px_rgba(255,255,255,0.35)] md:inline-flex"
-        >
-          Entrar em contato <ArrowRight size={13} />
-        </a>
+        <div className="flex items-center gap-2">
+          <div className="hidden md:block">
+            <LanguageSelector />
+          </div>
 
-        <Dialog.Root open={open} onOpenChange={setOpen}>
-          <Dialog.Trigger asChild>
-            <button
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white shadow-[0_4px_10px_-2px_rgba(0,0,0,0.5)] backdrop-blur transition hover:bg-white/20 md:hidden"
-              aria-label="Abrir menu"
-            >
-              <Menu size={22} strokeWidth={2.5} />
-            </button>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Overlay className="fixed inset-0 z-[60] bg-brand-black/80 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out" />
-            <Dialog.Content className="fixed inset-x-0 top-0 z-[70] border-b border-white/10 bg-brand-black p-6 shadow-2xl">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <img src={asset('Logo_Branca.png')} alt="" className="h-8 w-auto" />
-                  <Dialog.Title className="font-heading text-sm uppercase tracking-[0.28em] text-white">
-                    Menu
-                  </Dialog.Title>
-                </div>
-                <Dialog.Close asChild>
-                  <button className="rounded-full border border-white/15 p-2 text-white" aria-label="Fechar">
-                    <X size={18} />
-                  </button>
-                </Dialog.Close>
-              </div>
-              <nav className="mt-8 flex flex-col gap-1">
-                {links.map((l) => (
-                  <a
-                    key={l.href}
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="rounded-xl px-4 py-3 font-heading text-lg text-white transition hover:bg-white/5"
-                  >
-                    {l.label}
-                  </a>
-                ))}
-              </nav>
-              <a
-                href="#cta"
-                onClick={() => setOpen(false)}
-                className="btn btn-primary mt-6 w-full"
+          <a
+            href="#cta"
+            data-magnetic
+            className="hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-[12.5px] font-medium text-brand-black transition hover:-translate-y-[1px] hover:shadow-[0_10px_24px_-8px_rgba(255,255,255,0.35)] md:inline-flex"
+          >
+            {t.nav.contact} <ArrowRight size={13} />
+          </a>
+
+          <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Trigger asChild>
+              <button
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white shadow-[0_4px_10px_-2px_rgba(0,0,0,0.5)] backdrop-blur transition hover:bg-white/20 md:hidden"
+                aria-label={t.nav.openMenu}
               >
-                Entrar em contato <ArrowRight size={14} />
-              </a>
-            </Dialog.Content>
-          </Dialog.Portal>
-        </Dialog.Root>
+                <Menu size={22} strokeWidth={2.5} />
+              </button>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className="fixed inset-0 z-[60] bg-brand-black/80 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out" />
+              <Dialog.Content className="fixed inset-x-0 top-0 z-[70] border-b border-white/10 bg-brand-black p-6 shadow-2xl">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img src={asset('Logo_Branca.png')} alt="" className="h-8 w-auto" />
+                    <Dialog.Title className="font-heading text-sm uppercase tracking-[0.28em] text-white">
+                      {t.nav.menu}
+                    </Dialog.Title>
+                  </div>
+                  <Dialog.Close asChild>
+                    <button className="rounded-full border border-white/15 p-2 text-white" aria-label={t.nav.close}>
+                      <X size={18} />
+                    </button>
+                  </Dialog.Close>
+                </div>
+                <nav className="mt-8 flex flex-col gap-1">
+                  {links.map((l) => (
+                    <a
+                      key={l.href}
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      className="rounded-xl px-4 py-3 font-heading text-lg text-white transition hover:bg-white/5"
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                </nav>
+                <div className="mt-6">
+                  <LanguageSelector variant="mobile" />
+                </div>
+                <a
+                  href="#cta"
+                  onClick={() => setOpen(false)}
+                  className="btn btn-primary mt-4 w-full"
+                >
+                  {t.nav.contact} <ArrowRight size={14} />
+                </a>
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
+        </div>
       </div>
     </motion.header>
   );

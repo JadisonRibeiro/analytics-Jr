@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import { viewportOnce } from '@/utils/animations';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function VerseSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative overflow-hidden bg-white py-32 sm:py-40">
       <WaveDivider position="top" />
@@ -28,7 +30,7 @@ export function VerseSection() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           className="font-heading text-[clamp(1.4rem,2.6vw,2rem)] font-medium italic leading-[1.35] text-black/85"
         >
-          “Olho nenhum viu, ouvido nenhum ouviu, mente nenhuma imaginou o que Deus preparou para aqueles que o amam.”
+          {t.verse.quote}
         </motion.blockquote>
 
         <motion.cite
@@ -38,7 +40,7 @@ export function VerseSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
           className="mt-6 text-sm not-italic uppercase tracking-[0.32em] text-black/55"
         >
-          1 Coríntios 2:9
+          {t.verse.reference}
         </motion.cite>
 
         <motion.div
@@ -56,7 +58,7 @@ export function VerseSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.45 }}
           className="mt-8 inline-flex items-center gap-2 text-sm text-black/70"
         >
-          Esta empresa ama Jesus
+          {t.verse.tagline}
           <Heart size={14} className="fill-rose-500 text-rose-500" strokeWidth={0} />
         </motion.p>
       </div>
@@ -80,7 +82,7 @@ function WaveDivider({ position }: { position: 'top' | 'bottom' }) {
       >
         <motion.path
           fill="#000"
-          initial={{ opacity: 0.95 }}
+          initial={{ opacity: 1 }}
           animate={{
             d: [
               'M0,0 L1440,0 L1440,60 C1200,110 960,20 720,60 C480,100 240,30 0,70 Z',

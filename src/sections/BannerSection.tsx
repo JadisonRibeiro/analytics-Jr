@@ -91,18 +91,9 @@ function WaveDivider({ position }: { position: 'top' | 'bottom' }) {
         preserveAspectRatio="none"
         className="h-full w-full"
       >
-        <motion.path
+        <path
           fill="#000"
-          initial={{ opacity: 1 }}
-          animate={{
-            d: [
-              'M0,0 L1440,0 L1440,60 C1200,110 960,20 720,60 C480,100 240,30 0,70 Z',
-              'M0,0 L1440,0 L1440,70 C1200,30 960,100 720,50 C480,10 240,90 0,50 Z',
-              'M0,0 L1440,0 L1440,50 C1200,90 960,10 720,70 C480,110 240,20 0,80 Z',
-              'M0,0 L1440,0 L1440,60 C1200,110 960,20 720,60 C480,100 240,30 0,70 Z',
-            ],
-          }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          d="M0,0 L1440,0 L1440,60 C1200,110 960,20 720,60 C480,100 240,30 0,70 Z"
         />
       </svg>
     </div>

@@ -13,11 +13,11 @@ export function VisionSection() {
 
       <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 80, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-white via-[#FAFAF8] to-[#F0F0EC] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/[0.04]"
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-[40px] bg-gradient-to-br from-white via-[#FAFAF8] to-[#F0F0EC] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/[0.04] [transform:translateZ(0)]"
         >
           <div className="pointer-events-none absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.05),transparent_65%)]" />
           <div className="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.04),transparent_65%)]" />
@@ -85,10 +85,10 @@ export function VisionSection() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
               className="relative"
             >
               <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[40px] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.1),transparent_70%)] blur-2xl" />

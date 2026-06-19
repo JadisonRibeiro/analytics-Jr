@@ -175,7 +175,7 @@ export const translations = {
           bio: 'Especialista em Power BI e modelagem de dados. Lidera a estratégia analítica e a construção dos painéis que viram decisão.',
         },
         {
-          name: 'Raiany',
+          name: 'Raiany Ribeiro',
           role: 'Co-fundadora & Analista de Negócios',
           bio: 'Conecta os dados ao negócio. Traduz necessidades reais em indicadores claros e garante que cada entrega gere impacto.',
         },
@@ -560,7 +560,7 @@ export const translations = {
           bio: 'Power BI and data modeling specialist. Leads the analytics strategy and builds the dashboards that turn into decisions.',
         },
         {
-          name: 'Raiany',
+          name: 'Raiany Ribeiro',
           role: 'Co-founder & Business Analyst',
           bio: 'Connects data to the business. Translates real needs into clear metrics and makes sure every delivery drives impact.',
         },
@@ -947,7 +947,7 @@ export const translations = {
           bio: 'Especialista en Power BI y modelado de datos. Lidera la estrategia analítica y construye los paneles que se vuelven decisión.',
         },
         {
-          name: 'Raiany',
+          name: 'Raiany Ribeiro',
           role: 'Cofundadora & Analista de Negocios',
           bio: 'Conecta los datos con el negocio. Traduce necesidades reales en indicadores claros y asegura que cada entrega genere impacto.',
         },

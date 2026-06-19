@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { fadeUp, stagger, viewportOnce } from '@/utils/animations';
 import { useLanguage } from '@/i18n/LanguageContext';
 
-const PHOTOS = ['/Jadison.png', '/Raiany.png'];
+const PHOTOS = ['/Jadison.webp', '/Raiany.webp'];
 
 export function TeamSection() {
   const { t } = useLanguage();

@@ -7,7 +7,7 @@ const PHOTOS = ['/Jadison.webp', '/Raiany.webp'];
 export function TeamSection() {
   const { t } = useLanguage();
   return (
-    <section id="team" className="relative overflow-hidden bg-brand-black py-24 sm:py-32">
+    <section id="team" className="relative overflow-hidden bg-brand-black py-16 sm:py-20">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-brand-black to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-brand-black to-transparent" />
       <div className="pointer-events-none absolute -left-40 top-1/4 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.05),transparent_65%)]" />
@@ -19,11 +19,11 @@ export function TeamSection() {
           whileInView="show"
           viewport={viewportOnce}
           variants={stagger}
-          className="mx-auto max-w-[680px] text-center"
+          className="mx-auto max-w-[980px] text-center"
         >
           <motion.h2
             variants={fadeUp}
-            className="font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.12] tracking-normal sm:leading-[1.02] sm:tracking-[-0.02em] text-white"
+            className="mx-auto max-w-[900px] font-heading text-[clamp(2rem,4.5vw,3.5rem)] font-bold uppercase leading-[1.08] tracking-normal sm:leading-[1] sm:tracking-[-0.02em] text-white"
           >
             {t.team.title1}
             <br className="hidden sm:block" />
@@ -40,7 +40,7 @@ export function TeamSection() {
           </motion.p>
         </motion.div>
 
-        <div className="mx-auto mt-16 grid max-w-[1000px] gap-8 sm:mt-20 sm:grid-cols-2 sm:gap-10">
+        <div className="mx-auto mt-10 grid max-w-[1000px] gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-10">
           {t.team.members.map((m, i) => (
             <motion.article
               key={m.name}

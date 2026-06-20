@@ -178,20 +178,34 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (hover: none) and (pointer: coarse) {
-  [class*="backdrop-blur"] {
+  [class*="backdrop-blur"],
+  .glass-dark,
+  .chaos-item,
+  .dash-output,
+  .fp-kpi {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
 
-  /* Kill continuous opacity/glow pulses + scan beams on touch devices:
-     many simultaneous looping animations read as "flickering" on mobile.
-     Entrance animations are untouched. */
-  .fp-scan { display: none !important; }
+  /* Stop purely-decorative infinite loops that read as "flickering" and tax
+     mobile GPUs. Every selector here stays fully visible without its animation,
+     so NO content or layout is lost. Reveal/entrance animations are untouched. */
+  .fp-scan,
+  .dash-glow-svg {
+    display: none !important;
+  }
+
   .fp-badge-dot,
-  .fp-data-point-glow,
   .do-live-dot,
-  .eden-core {
+  .orb-core,
+  .orb-ring,
+  .orb-ring-2 {
     animation: none !important;
+  }
+
+  .fp-data-point-glow {
+    animation: none !important;
+    opacity: 0.5 !important;
   }
 }
 
